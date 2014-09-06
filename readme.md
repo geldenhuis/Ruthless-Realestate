@@ -1,6 +1,7 @@
-## Synopsis
+## Project Overview
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+Website for FIT2076 (Web Programming) - Ruthless Real Estate client site.
+####Team Members: Luke, Samuel
 
 ## Code Example
 
