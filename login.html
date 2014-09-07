@@ -5,8 +5,8 @@
     <!-- Add the standard meta shit -->
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta name="description" content="FIT2076 Assignment 2">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="FIT2076 Assignment 2 - Login Page">
     <meta name="author" content="Luke Blues (25124463), Samuel Collier ()">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, FIT2076">
 
@@ -19,6 +19,7 @@
     <!-- Font Awesome -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,25 +29,20 @@
 </head>
 
 
-<body id="top">
-    <h1>Administration Panel</h1>
+<body style="background-color: #333333;">
+    <div class="container">
+        <form class="form-signin" role="form">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type="email" class="form-control" placeholder="Email address" required autofocus>
+            <input type="password" class="form-control" placeholder="Password" required>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me">Remember me
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
 
-    <!-- Start Topbar -->
-
-    <!-- End Topbar -->
-
-    <!-- Start Sidebar -->
-
-    <!-- End Sidebar -->
-
-    <!-- Start Main Content -->
-
-    <!-- End Main Content -->
-
-
-    <!-- Javascript Libraries (Load last to increase page generation speed) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    </div>
+    <!-- /container -->
 </body>
 
 </html>
