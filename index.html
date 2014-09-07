@@ -8,16 +8,19 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="FIT2076 Assignment 2">
     <meta name="author" content="Luke Blues (25124463), Samuel Collier ()">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, FIT2076">
+    <meta name="keyword" content="Panel, Bootstrap, Admin, FIT2076">
 
     <title>Rutheless Real Estate</title>
 
+    <!-- Custom CSS Styles for Admin Panel -->
+    <link href="./css/style.css" rel="stylesheet">
+
     <!-- BootStrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <script src="./js/bootstrap.min.js"></script>
 
     <!-- Font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,11 +32,27 @@
 
 
 <body id="top">
-    <h1>Administration Panel</h1>
 
-    <!-- Start Topbar -->
-
-    <!-- End Topbar -->
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-bolt"></i></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
 
     <!-- Start Sidebar -->
 
@@ -45,8 +64,13 @@
 
 
     <!-- Javascript Libraries (Load last to increase page generation speed) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="./js/jquery-1.11.1.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+    <!-- Update to 2.1.1 at a later stage
+    <script src="./js/jquery-2.1.1.js"></script>
+    -->
+
 </body>
 
 </html>
