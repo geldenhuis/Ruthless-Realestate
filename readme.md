@@ -4,10 +4,11 @@ Website for Ruthless Real Estate client site.
 Monash University - FIT2076 Web Programming Assignment 2
 
 **Major Sections**
+
 Administration Panel
+
 Client Side 
-    - Property Search
-    - Contact Us
+
 
 ## Contributors
 
