@@ -20,7 +20,7 @@
   </head>
 
   <body>
-    <h1>Hello, world!</h1>
+    <h1>This is a change</h1>
 
     <?php
         //Database Connection Settings - Remote DB /w Local Content
@@ -49,6 +49,7 @@
           <td><?php echo oci_result($stmt, 2); ?></td>
           <td><?php echo oci_result($stmt, 3); ?></td>
           <td><?php echo oci_result($stmt, 4); ?></td>
+          <td><?php echo oci_result($stmt, 5); ?></td>
           <td><?php echo oci_result($stmt, 5); ?></td>
         </tr>
     <?php
