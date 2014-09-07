@@ -1,18 +1,11 @@
 ## Project Overview
 
-Website for Ruthless Real Estate client site.
+Administration Web-Application for Ruthless Real Estate.
 Monash University - FIT2076 Web Programming Assignment 2
-
-**Major Sections**
-
-Administration Panel
-
-Client Side 
-
 
 ## Contributors
 
-Luke Blues - https://cod.io
+Luke Blues - https://
 
 ## License
 
