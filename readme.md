@@ -12,7 +12,7 @@ Client Side
 
 ## Contributors
 
-Luke Blues - https://cod.io
+Luke Blues - https://cod.io 
 Samuel Collier - 
 
 ## License
