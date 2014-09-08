@@ -1,11 +1,12 @@
 ## Project Overview
 
-Administration Web-Application for Ruthless Real Estate.
+Administration Web-Application for Ruthless Real Estate. 
+
 Monash University - FIT2076 Web Programming Assignment 2
 
 ## Contributors
 
-Luke Blues - https://
+Luke Blues - https://cod.ing
 
 ## License
 
