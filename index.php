@@ -19,21 +19,41 @@
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- TO BE IMPLEMENTED
+    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="./assets/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "./server_side.php"
+            });
+        });
+    </script>
+    -->
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
 </head>
 
 
 <body class="skin-blue">
     <header class="header">
         <a href="index.html" class="logo">
-            This is whack yo
+            Administration
         </a>
-        <nav class="navbar navbar-static-top" role="navigation"></nav>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <nav class="navbar-right"><i class="fa fa-cloud pad"></i>
+            </nav>
+        </nav>
     </header>
 
     <div class="wrapper">
@@ -41,8 +61,13 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="index.html">
+                        <a href="index.php">
                             <i class="fa fa-dashboard"></i>  <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="feature_type.php">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
                         </a>
                     </li>
                     <li>
@@ -50,10 +75,25 @@
                             <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
                         </a>
                     </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+
                 </ul>
             </section>
         </aside>
-
 
         <aside class="right-side">
             <section class="content-header">
@@ -68,54 +108,30 @@
             <div class="col-xs-12 pad">
                 <div class="box box-solid flat">
                     <div class="box-body">
-                        <table class="table table-striped">
+                        <?php include( "remoteconnection.php"); $conn=oci_connect($UName,$PWord,$DB); $query="SELECT * FROM customer" ; $stmt=oci_parse($conn, $query); oci_execute($stmt); ?>
+                        <table class="table striped-table">
                             <thead>
                                 <tr>
-                                    <th>Row</th>
+                                    <th>Cust No</th>
                                     <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Del</th>
+                                    <th>Surname</th>
+                                    <th>Address</th>
+                                    <th>Contact</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John</td>
-                                    <td>Carter</td>
-                                    <td>johncarter@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Peter</td>
-                                    <td>Parker</td>
-                                    <td>peterparker@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>John</td>
-                                    <td>Rambo</td>
-                                    <td>johnrambo@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
-                                </tr>
+
+                                <?php while ($row=oci_fetch_array ($stmt)) { echo "<tr>"; echo "<td>$row[0]</td>"; echo "<td>$row[1]</td>"; echo "<td>$row[2]</td>"; echo "<td>$row[3]</td>"; echo "<td>$row[4]</td>"; echo "</tr>"; } ?>
                             </tbody>
                         </table>
+                        <?php oci_free_statement($stmt); oci_close($conn); ?>
+
                     </div>
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- Javascript Libraries (Load last to increase page generation speed) -->
-    <script src="./assets/js/jquery-1.11.1.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
 </body>

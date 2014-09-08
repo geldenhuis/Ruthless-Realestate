@@ -19,12 +19,19 @@
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="./assets/js/jquery.dataTables.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
 </head>
 
 
@@ -40,9 +47,14 @@
         <aside class="left-side">
             <section class="sidebar">
                 <ul class="sidebar-menu">
-                    <li class="active">
-                        <a href="index.html">
+                    <li>
+                        <a href="index.php">
                             <i class="fa fa-dashboard"></i>  <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="feature_php.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
                         </a>
                     </li>
                     <li>
@@ -50,63 +62,62 @@
                             <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
                         </a>
                     </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/widgets.html">
+                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        </a>
+                    </li>
+
                 </ul>
             </section>
         </aside>
-
 
         <aside class="right-side">
             <section class="content-header">
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a>
                     </li>
-                    <li class="active">Client Management</li>
+                    <li class="active">Feature Type Management</li>
                 </ol>
                 <h1 style="text-align: center;">Clients</h1>
             </section>
 
             <div class="col-xs-12 pad">
                 <div class="box box-solid flat">
-                    <div class="box-body">
-                        <table class="table table-striped">
+                    <div class="box-body table-responsive">
+                        <table id="example" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Row</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Del</th>
+                                    <th>cust_id</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Extn.</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
                                 </tr>
                             </thead>
-                            <tbody>
+
+                            <tfoot>
                                 <tr>
-                                    <td>1</td>
-                                    <td>John</td>
-                                    <td>Carter</td>
-                                    <td>johncarter@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Extn.</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Peter</td>
-                                    <td>Parker</td>
-                                    <td>peterparker@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>John</td>
-                                    <td>Rambo</td>
-                                    <td>johnrambo@mail.com</td>
-                                    <td>
-                                        <input type='checkbox'>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            </tfoot>
+
                         </table>
                     </div>
                 </div>
@@ -114,8 +125,17 @@
         </aside>
     </div>
 
-    <!-- Javascript Libraries (Load last to increase page generation speed) -->
-    <script src="./assets/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "./server_side.php"
+            });
+        });
+    </script>
+
+
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
 </body>

@@ -1,36 +1,28 @@
-@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
-@import url(//fonts.googleapis.com/css?family=Kaushan+Script);
-
-/* Header */
-
-body > .header {
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,300,700,600,800,400);
+ body > .header {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1030;
+    font-family: 'Open Sans', sans-serif;
 }
-
-/*right side - contins main content*/
-
 .right-side {
     min-height: 100%;
     display: block;
     background-color: #f9f9f9;
     margin-left: 220px;
 }
-/*left side - contains sidebar*/
-
 .left-side {
     min-height: 100%;
     display: block;
     position: absolute;
     width: 220px;
-    top: 0;
+    top: 0;4
 }
 @media screen and (min-width: 992px) {
     .left-side {
-        top: 50px;
+        padding-top: 52px;
     }
     /*Right side strech mode*/
     .right-side.strech {
@@ -39,12 +31,7 @@ body > .header {
     .right-side.strech > .content-header {
         margin-top: 0px;
     }
-    /* Left side collapse */
-    .left-side.collapse-left {
-        left: -220px;
-    }
 }
-
 /*
     By default the layout is not fixed but if you add the class .fixed to the body element
     the sidebar and the navbar will automatically become poisitioned fixed
@@ -67,7 +54,6 @@ body.fixed .navbar {
 body.fixed .wrapper {
     margin-top: 50px;
 }
-
 /* Content */
 
 .content {
@@ -142,44 +128,6 @@ img {
     -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
-/* Change the color of the striped tables */
-
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
-    background-color: #f3f4f5;
-}
-.table.no-border,
-.table.no-border td,
-.table.no-border th {
-    border: 0;
-}
-/* .text-center in tables */
-
-table.text-center,
-table.text-center td,
-table.text-center th {
-    text-align: center;
-}
-.table.align th {
-    text-align: left;
-}
-.table.align td {
-    text-align: right;
-}
-.text-bold,
-.text-bold.table td,
-.text-bold.table th {
-    font-weight: 700;
-}
-.border-radius-none {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
-}
-.connectedSortable {
-    min-height: 100px;
-}
-
 /*
     Components: navbar, logo and content header
 -------------------------------------------------
@@ -256,7 +204,7 @@ body > .header .logo {
     text-align: center;
     padding: 0 10px;
     width: 220px;
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     height: 50px;
     display: block;
@@ -404,9 +352,6 @@ body > .header .logo .icon {
 .sidebar .sidebar-menu .treeview-menu > li > a > .ion {
     width: 20px;
 }
-
-
-
 /*
     Skin Blue
     ---------
