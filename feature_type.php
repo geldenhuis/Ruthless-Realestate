@@ -21,8 +21,20 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+    <!-- Maybe Implement
     <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="./assets/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "./server_side.php"
+            });
+        });
+    </script>
+    -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,9 +50,10 @@
 <body class="skin-blue">
     <header class="header">
         <a href="index.html" class="logo">
-            This is whack yo
+            Administration
         </a>
-        <nav class="navbar navbar-static-top" role="navigation"></nav>
+        <nav class="navbar navbar-static-top" role="navigation">
+        </nav>
     </header>
 
     <div class="wrapper">
@@ -53,7 +66,7 @@
                         </a>
                     </li>
                     <li class="active">
-                        <a href="feature_php.html">
+                        <a href="feature_type.php">
                             <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
                         </a>
                     </li>
@@ -87,54 +100,60 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a>
                     </li>
-                    <li class="active">Feature Type Management</li>
+                    <li class="active">Client Management</li>
                 </ol>
                 <h1 style="text-align: center;">Clients</h1>
             </section>
 
             <div class="col-xs-12 pad">
                 <div class="box box-solid flat">
-                    <div class="box-body table-responsive">
-                        <table id="example" class="table table-bordered table-striped">
+                    <div class="box-body">
+
+                        <div class="input-group"> <span class="input-group-addon">Filter</span>
+                            <input id="filter" type="text" class="form-control" placeholder="Type here...">
+                        </div>
+                        <?php include( "remoteconnection.php"); $conn=oci_connect($UName,$PWord,$DB); $query="SELECT * FROM customer" ; $stmt=oci_parse($conn, $query); oci_execute($stmt); ?>
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>cust_id</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Extn.</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Address</th>
+                                    <th>Phone Number</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Extn.</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </tfoot>
-
+                            <tbody class="searchable">
+                                <?php while ($row=oci_fetch_array ($stmt)) { echo "<tr>"; echo "<td>$row[0]</td>"; echo "<td>$row[1]</td>"; echo "<td>$row[2]</td>"; echo "<td>$row[3]</td>"; echo "<td>$row[4]</td>"; echo "</tr>"; } ?>
+                            </tbody>
                         </table>
+                        <?php oci_free_statement($stmt); oci_close($conn); ?>
+
                     </div>
                 </div>
             </div>
         </aside>
     </div>
-
-    <script type="text/javascript">
+    <script type=text/javascript>
         $(document).ready(function () {
-            $('#example').dataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "./server_side.php"
-            });
+
+            (function ($) {
+
+                $('#filter').keyup(function () {
+
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.searchable tr').hide();
+                    $('.searchable tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+
+                })
+
+            }(jQuery));
+
         });
     </script>
-
 
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>

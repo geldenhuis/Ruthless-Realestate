@@ -19,7 +19,9 @@
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- TO BE IMPLEMENTED
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Maybe Implement
     <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="./assets/js/jquery.dataTables.min.js"></script>
 
@@ -51,8 +53,6 @@
             Administration
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <nav class="navbar-right"><i class="fa fa-cloud pad"></i>
-            </nav>
         </nav>
     </header>
 
@@ -60,34 +60,35 @@
         <aside class="left-side">
             <section class="sidebar">
                 <ul class="sidebar-menu">
+
                     <li class="active">
                         <a href="index.php">
-                            <i class="fa fa-dashboard"></i>  <span>Dashboard</span>
+                            <i class="fa fa-dashboard"></i>  <span>Home</span>
                         </a>
                     </li>
                     <li>
                         <a href="feature_type.php">
-                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                            <i class="fa fa-th"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        <a href="#">
+                            <i class="fa fa-th"></i>  <span>Listings</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        <a href="#">
+                            <i class="fa fa-th"></i>  <span>Images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                        <a href="#">
+                            <i class="fa fa-th"></i>  <span>Customers</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="pages/widgets.html">
-                            <i class="fa fa-th"></i>  <span>Widgets</span>  <small class="badge pull-right bg-green">new</small>
+                    <li style="bg-red">
+                        <a href="#">
+                            <i class="fa fa-th"></i>  <span>Logout</span>
                         </a>
                     </li>
 
@@ -100,37 +101,60 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a>
                     </li>
-                    <li class="active">Client Management</li>
                 </ol>
-                <h1 style="text-align: center;">Clients</h1>
+                <h1 style="text-align: center;">Overview</h1>
             </section>
 
             <div class="col-xs-12 pad">
+
+                <div class="input-group"> <span class="input-group-addon" >Filter Results</span>
+                    <input id="filter" type="text" class="form-control flat" placeholder="Type here...">
+                </div>
                 <div class="box box-solid flat">
                     <div class="box-body">
+
                         <?php include( "remoteconnection.php"); $conn=oci_connect($UName,$PWord,$DB); $query="SELECT * FROM customer" ; $stmt=oci_parse($conn, $query); oci_execute($stmt); ?>
-                        <table class="table striped-table">
+
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Cust No</th>
+                                    <th>#</th>
                                     <th>First Name</th>
-                                    <th>Surname</th>
+                                    <th>Last Name</th>
                                     <th>Address</th>
-                                    <th>Contact</th>
+                                    <th>Phone Number</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                                <?php while ($row=oci_fetch_array ($stmt)) { echo "<tr>"; echo "<td>$row[0]</td>"; echo "<td>$row[1]</td>"; echo "<td>$row[2]</td>"; echo "<td>$row[3]</td>"; echo "<td>$row[4]</td>"; echo "</tr>"; } ?>
+                            <tbody class="searchable">
+                                <?php while ($row=oci_fetch_array ($stmt)) { echo "<tr>"; echo "<td>$row[0]</td>"; echo "<td>$row[1]</td>"; echo "<td>$row[2]</td>"; echo "<td>$row[3]</td>"; echo "<td>$row[4]</td>"; echo "<td><button class='btn btn-danger'>Edit</button></td>"; echo "</tr>";} ?>
                             </tbody>
                         </table>
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
-
                     </div>
                 </div>
             </div>
         </aside>
     </div>
+    <script type=text/javascript>
+        $(document).ready(function () {
+
+            (function ($) {
+
+                $('#filter').keyup(function () {
+
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.searchable tr').hide();
+                    $('.searchable tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+
+                })
+
+            }(jQuery));
+
+        });
+    </script>
 
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
