@@ -7,21 +7,20 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta name="description" content="FIT2076 Assignment 2">
-    <meta name="author" content="Luke Blues (25124463), Samuel Collier ()">
-    <meta name="keyword" content="Panel, Bootstrap, Admin, FIT2076">
+    <meta name="author" content="Luke Blues (25124463)">
+    <meta name="keyword" content="">
 
     <title>Ruthless Real Estate</title>
 
     <!-- Custom CSS Styles for Admin Panel -->
-    <link href="./assets/css/style.css" rel="stylesheet">
-    <link href="./assets/css/sidebar.css">
+    <link href="./assets/css/sidebar.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- BootStrap -->
     <link href="./assets/css/bootstrap.css" rel="stylesheet">
     <script src="./assets/js/bootstrap.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,109 +31,79 @@
 </head>
 
 
-<body id="top">
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><i class="fa fa-cloud"></i></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active">
-                        <a href="#contact">
-                            <i class="fa fa-user" style="padding-right: 8px; font-size: 20px"></i>Logout</a>
-                    </li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
+<body>
+    <!-- Start Nav Bar -->
+    <div class="navbar navbar-default" style="z-index:10001;">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><i class="fa fa-cloud"></i> Ruthless Real Estate</a>
         </div>
     </div>
+    <!-- End Nav Bar -->
+
 
     <!-- Start Sidebar -->
 
-    <!-- begin #sidebar -->
-    <div id="sidebar" class="sidebar" style="width: 220px; position: absolute; left: 0; top: 0; bottom: 0; padding-top: 80px; background: #2d353c; z-index: 10;">
-
-        <!-- begin sidebar nav -->
+    <div id="sidebar" class="sidebar">
         <ul class="nav">
-            <li class="nav-header">Navigation</li>
-            <li class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
-                    <i class="fa fa-laptop"></i>
-                    <span>
-						        Dashboard
-					            <span class="label label-theme m-l-5">NEW</span>
-                    </span>
-                </a>
-                <ul class="sub-menu">
-                    <li><a href="index.html">Dashboard v1</a>
-                    </li>
-                    <li><a href="index_v2.html">Dashboard v2 <i class="fa fa-paper-plane text-theme m-l-5"></i></a>
-                    </li>
-                </ul>
+            <li class="sidebar-active">
+                <span>Property Management</span>
             </li>
-            <li>
-                <a href="inbox.html">
-                    <span class="badge pull-right">10</span>
-                    <i class="fa fa-inbox"></i>  <span>Inbox</span>
-                </a>
+
+            <li class="sidebar-item">
+                <span>Client Management</span>
             </li>
-            <li class="has-sub">
-                <a href="javascript:;">
-                    <b class="caret pull-right"></b>
-                    <i class="fa fa-suitcase"></i>
-                    <span>
-						        UI Elements
-					            <span class="label label-theme m-l-5">NEW</span>
-                    </span>
-                </a>
-                <ul class="sub-menu">
-                    <li><a href="ui_general.html">General</a>
-                    </li>
-                    <li><a href="ui_typography.html">Typography</a>
-                    </li>
-                    <li><a href="ui_tabs_accordions.html">Tabs & Accordions</a>
-                    </li>
-                    <li><a href="ui_modal_notification.html">Modal & Notification</a>
-                    </li>
-                    <li><a href="ui_widget_boxes.html">Widget Boxes</a>
-                    </li>
-                    <li><a href="ui_media_object.html">Media Object</a>
-                    </li>
-                    <li><a href="ui_buttons.html">Buttons</a>
-                    </li>
-                    <li><a href="ui_icons.html">Icons</a>
-                    </li>
-                    <li><a href="ui_simple_line_icons.html">Simple Line Icons <i class="fa fa-paper-plane text-theme m-l-5"></i></a>
-                    </li>
-                </ul>
+
+            <li class="sidebar-item">
+                <span>Listing Management</span>
             </li>
-            </li>
-            <!-- end sidebar minify button -->
         </ul>
-        <!-- end sidebar nav -->
     </div>
-    <div class="sidebar-bg"></div>
-
-
     <!-- End Sidebar -->
 
-    <!-- Start Main Content -->
-
-    <!-- End Main Content -->
-
-
-
+    <table class="table table-bordered" style="position: relative;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pending-user">
+                <td>564</td>
+                <td>John S. Schwab</td>
+                <td>johnschwab@provider.com</td>
+                <td>402-xxx-xxxx</td>
+                <td>Bassett, NE</td>
+                <td>User</td>
+                <td><span class="label label-important">Inactive</span>
+                </td>
+                <td><span class="user-actions"><a href="javascript:void(0);" class="label label-success">Approve</a> <a href="javascript:void(0);" class="label label-important">Reject</a></span>
+                </td>
+            </tr>
+            <tr class="pending-user">
+                <td>565</td>
+                <td>Juliana M. Sheffield</td>
+                <td>julianasheffield@provider.com</td>
+                <td>803-xxx-xxxx</td>
+                <td>Columbia, SC</td>
+                <td>User</td>
+                <td><span class="label label-important">Inactive</span>
+                </td>
+                <td><span class="user-actions"><a href="javascript:void(0);" class="label label-success">Approve</a> <a href="javascript:void(0);" class="label label-important">Reject</a></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>>
     <!-- Javascript Libraries (Load last to increase page generation speed) -->
     <script src="./assets/js/jquery-1.11.1.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
-
-    <!-- Update to 2.1.1 at a later stage
-    <script src="./js/jquery-2.1.1.js"></script>
-    -->
 
 </body>
 
