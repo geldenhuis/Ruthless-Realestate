@@ -18,7 +18,6 @@
     <link href="./assets/css/box.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!-- Maybe Implement
@@ -58,17 +57,17 @@
 
     <div class="wrapper">
         <aside class="left-side">
-            <section class="sidebar">
+            <section class="sidebar bg">
                 <ul class="sidebar-menu">
 
                     <li class="active">
                         <a href="index.php">
-                            <i class="fa fa-dashboard"></i>  <span>Home</span>
+                            <i class="fa fa-bar-chart"></i>  <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="feature_type.php">
-                            <i class="fa fa-th"></i>  <span>Property</span>
+                        <a href="#">
+                            <i class="fa fa-key"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
@@ -78,20 +77,36 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-th"></i>  <span>Images</span>
+                            <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-th"></i>  <span>Customers</span>
+                        <a href="customers.php">
+                            <i class="fa fa-users"></i>  <span>Customers</span>
                         </a>
                     </li>
-                    <li style="bg-red">
-                        <a href="#">
-                            <i class="fa fa-th"></i>  <span>Logout</span>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">
+                            <i class="fa fa-power-off"></i>  <span>Logout</span>
                         </a>
                     </li>
 
+                    <!-- Small modal -->
+
+                    <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="false">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Logout <i class="fa fa-lock"></i></h4>
+                                </div>
+                                <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
+                                <div class="modal-footer">
+                                    <a href="#" class="btn btn-danger">Yes</a>
+                                    <a href="javascript:;" class="btn btn-primary">No</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </ul>
             </section>
         </aside>
@@ -99,60 +114,40 @@
         <aside class="right-side">
             <section class="content-header">
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a>
+                    <li><a href="#"><i class="fa fa-bar-chart"></i> Home</a>
                     </li>
+
                 </ol>
                 <h1 style="text-align: center;">Overview</h1>
             </section>
 
             <div class="col-xs-12 pad">
 
-                <div class="input-group"> <span class="input-group-addon" >Filter Results</span>
-                    <input id="filter" type="text" class="form-control flat" placeholder="Type here...">
-                </div>
+
                 <div class="box box-solid flat">
                     <div class="box-body">
+                        <h2>Administration Overview</h2>
+                        <hr>
 
-                        <?php include( "remoteconnection.php"); $conn=oci_connect($UName,$PWord,$DB); $query="SELECT * FROM customer" ; $stmt=oci_parse($conn, $query); oci_execute($stmt); ?>
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Address</th>
-                                    <th>Phone Number</th>
-                                    <th>Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody class="searchable">
-                                <?php while ($row=oci_fetch_array ($stmt)) { echo "<tr>"; echo "<td>$row[0]</td>"; echo "<td>$row[1]</td>"; echo "<td>$row[2]</td>"; echo "<td>$row[3]</td>"; echo "<td>$row[4]</td>"; echo "<td><button class='btn btn-danger'>Edit</button></td>"; echo "</tr>";} ?>
-                            </tbody>
-                        </table>
-                        <?php oci_free_statement($stmt); oci_close($conn); ?>
+
                     </div>
                 </div>
             </div>
         </aside>
     </div>
+
     <script type=text/javascript>
         $(document).ready(function () {
-
             (function ($) {
-
                 $('#filter').keyup(function () {
-
                     var rex = new RegExp($(this).val(), 'i');
                     $('.searchable tr').hide();
                     $('.searchable tr').filter(function () {
                         return rex.test($(this).text());
                     }).show();
-
                 })
-
             }(jQuery));
-
         });
     </script>
 
