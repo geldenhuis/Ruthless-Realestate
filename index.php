@@ -41,8 +41,6 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
 </head>
 
 
@@ -62,12 +60,12 @@
 
                     <li class="active">
                         <a href="index.php">
-                            <i class="fa fa-bar-chart"></i>  <span>Home</span>
+                            <i class="fa fa-bar-chart"></i>  <span>Overview</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-key"></i>  <span>Property</span>
+                            <i class="fa fa-home"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
@@ -91,18 +89,18 @@
                         </a>
                     </li>
 
-                    <!-- Small modal -->
-
+                    <!-- Logout Modal -->
                     <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4>Logout <i class="fa fa-lock"></i></h4>
+                                    <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
+                                    <h4><i class="fa fa-lock"></i> Logout</h4>
                                 </div>
                                 <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger">Yes</button>
-                                    <button type="button" class="btn btn-warning">No</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-warning">No</button>
                                 </div>
                             </div>
                         </div>
@@ -114,53 +112,78 @@
         <aside class="right-side">
             <section class="content-header" style="height: 50px;">
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-bar-chart"></i> Home</a>
+                    <li><a href="#"><i class="fa fa-bar-chart"></i> Overview</a>
                     </li>
 
                 </ol>
             </section>
 
-            <div class="col-xs-12 pad">
-                <div class="box box-solid flat">
-                    <div class="box-body">
-                        <h2>Administration Overview</h2>
-                    </div>
-                </div>
-
+            <div class="col-xs-12 ">
+                <h2>Administration Overview</h2>
+                <hr>
                 <div class="container">
-                    <!-- Example row of columns -->
                     <div class="row" style="text-align: center;">
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Property Management</h2>
-                            <span><i class="fa fa-building fa-5x"></i>
-                            <ul>
-                                <li>Coffee</li>
-                                <li>Tea</li>
-                                <li>Milk</li>
-                            </ul>
+                        <div class="col-md-3 box box-solid flat">
+                            <h3>Property Overview</h3>
+                            <hr>
+                            <i class="fa fa-home fa-4x"></i>
+                            <h4>Total Properties</h4>
+                            <h2 class="text-blue">1203</h2>
 
-                            </span>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
+                            <div class="pad">
+                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Property DB</a>
+                            </div>
+
                         </div>
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Client Management</h2>
-                            <i class="fa fa-user fa-5x"></i>
-                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
+
+                        <div class="col-md-3 box box-solid flat">
+                            <h3>Client Overview</h3>
+                            <hr>
+                            <i class="fa fa-user fa-4x"></i>
+                            <h4>Total Clients</h4>
+                            <h2 class="text-blue">340</h2>
+
+                            <div class="pad">
+                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Client DB</a>
+                            </div>
+
                         </div>
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Listing Management</h2>
-                            <i class="fa fa-newspaper-o fa-5x"></i>
-                            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
+
+                        <div class="col-md-3 box box-solid flat">
+                            <h3>Listing Overview</h3>
+                            <hr>
+                            <i class="fa fa-newspaper-o fa-4x"></i>
+                            <h4>Active Listings</h4>
+                            <h2 class="text-blue">34</h2>
+
+                            <div class="pad">
+                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Listings</a>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3 box box-solid flat">
+                            <h3>Sales Overview</h3>
+                            <hr>
+                            <i class="fa fa-dollar fa-4x"></i>
+                            <h4>Monthly Sales</h4>
+                            <h2 class="text-blue">34</h2>
+
+                            <div class="pad">
+                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Sales</a>
+                            </div>
+
                         </div>
                     </div>
+
+                    <div class="row" style="text-align: center;">
+
+                    </div>
+
+
                 </div>
+            </div>
         </aside>
-</div>
 
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/retina.min.js"></script>

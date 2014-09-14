@@ -20,20 +20,6 @@
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <!-- Maybe Implement
-    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="./assets/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').dataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "./server_side.php"
-            });
-        });
-    </script>
-    -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,21 +72,23 @@
                         </a>
                     </li>
                     <li>
-                        <a>
-                            <span data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-power-off"></i>  Logout</span>
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm">
+                            <i class="fa fa-power-off"></i>  <span>Logout</span>
                         </a>
                     </li>
 
-
-                    <!-- Log Off Modal -->
+                                     <!-- Logout Modal -->
                     <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4>Logout <i class="fa fa-lock"></i></h4>
+                                    <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
+                                    <h4><i class="fa fa-lock"></i> Logout</h4>
                                 </div>
                                 <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
-                                <div class="modal-footer"><a href="javascript:;" class="btn btn-danger">Yes</a><a href="javascript:;" class="btn btn-primary">No</a>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-warning">No</button>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +103,7 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-users"></i> Home</a>
                     </li>
-                    <li>Customer Overview</li>
+                    <li>Customer Database</li>
                 </ol>
             </section>
 
@@ -173,7 +161,12 @@
                                             echo "<td>$row[2]</td>";
                                             echo "<td>$row[3]</td>";
                                             echo "<td>$row[4]</td>";
-                                            echo "<td><button data-toggle='modal' data-target='.edit-modal' class='btn btn-danger'>Edit</button></td>";
+                                            echo "<td>";
+                                            echo "<button data-toggle='modal' data-target='.edit-modal' class='btn btn-danger'>";
+                                            echo "<i class='fa fa-edit'></i>";
+                                            echo " Edit";
+                                            echo "</button>";
+                                            echo "</td>";
                                             echo "</tr>";
                                         }
                                     ?>
@@ -182,10 +175,14 @@
                             </table>
                         </div>
                         <hr>
-                        <form method="POST" action="./generate-pdf.php">
-                            <input class="btn btn-primary" type=SUBMIT action="<?php  ?>" value="Generate PDF">
-                        </form>
+
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
+
+                        <form method="POST" action="./generate-pdf.php">
+                            <button class="btn btn-primary" type=SUBMIT action=""><i class="fa fa-download"></i> Download as PDF</button>
+                            <a class="btn btn-primary"><i class="fa fa-envelope"></i> Email Mailing List</a>
+                        </form>
+
                     </div>
                 </div>
             </div>
