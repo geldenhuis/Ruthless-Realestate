@@ -18,7 +18,8 @@
     display: block;
     position: absolute;
     width: 220px;
-    top: 0;4
+    top: 0;
+    4
 }
 @media screen and (min-width: 992px) {
     .left-side {
@@ -32,10 +33,21 @@
         margin-top: 0px;
     }
 }
+
+.login-div {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    margin-top: 100%;
+    margin-left: 100%;
+}
 /*
     By default the layout is not fixed but if you add the class .fixed to the body element
     the sidebar and the navbar will automatically become poisitioned fixed
 */
+
 
 body.fixed > .header,
 body.fixed .left-side,

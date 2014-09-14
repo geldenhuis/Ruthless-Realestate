@@ -46,7 +46,7 @@
 </head>
 
 
-<body class="skin-blue" style="font-family: HelveticaNeue-Light; font-weight: 300;">
+<body class="skin-blue">
     <header class="header">
         <a href="index.html" class="logo">
             Administration
@@ -114,56 +114,45 @@
         <aside class="right-side">
             <section class="content-header" style="height: 50px;">
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-bar-chart"></i> Home</a>
+                    <li><a href="#"><i class="fa fa-plus"></i> Home</a>
                     </li>
-
+                    <li>Create Client</li>
                 </ol>
+
             </section>
 
             <div class="col-xs-12 pad">
+                <h2 class="pad">Create Client Profile</h2>
                 <div class="box box-solid flat">
                     <div class="box-body">
-                        <h2>Administration Overview</h2>
+                        <div id="left" class="form-group pad" "style=float:left;">
+
+                            <form action="fuckoff.php" method="post">
+                                <label>First Name</label>
+                                <br>
+                                <input class="text" id="first" required>
+                                <br>
+                                <label>Last Name</label>
+                                <br>
+                                <input class="text" id="last" required>
+                                <br>
+                                <label>Phone Number</label>
+                                <br>
+                                <input class="text" id="ph" required>
+                                <br>
+                                <br>
+                                <button class="submit btn">Submit</button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
-
-                <div class="container">
-                    <!-- Example row of columns -->
-                    <div class="row" style="text-align: center;">
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Property Management</h2>
-                            <span><i class="fa fa-building fa-5x"></i>
-                            <ul>
-                                <li>Coffee</li>
-                                <li>Tea</li>
-                                <li>Milk</li>
-                            </ul>
-
-                            </span>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
-                        </div>
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Client Management</h2>
-                            <i class="fa fa-user fa-5x"></i>
-                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
-                        </div>
-                        <div class="col-md-4 box box-solid flat">
-                            <h2>Listing Management</h2>
-                            <i class="fa fa-newspaper-o fa-5x"></i>
-                            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </aside>
-</div>
+    </div>
 
-        <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="./assets/js/retina.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/retina.min.js"></script>
 </body>
 
 </html>

@@ -1,15 +1,14 @@
 .box {
-position: relative;
-background: #ffffff;
-border-top: 2px solid #c1c1c1;
-margin-bottom: 20px;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
-width: 100%;
-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background: #ffffff;
+    border-top: 2px solid #c1c1c1;
+    margin-bottom: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 100%;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
-
 .box .box-body {
     padding: 10px;
     -webkit-border-top-left-radius: 0;
@@ -25,7 +24,11 @@ box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-
 .box.box-solid {
-border-top: 0px;
+    border-top: 0px;
+}
+.tblEnd {
+    -webkit-box-shadow: 0px 2px 2px 0px rgba(50, 50, 50, 0.65);
+-moz-box-shadow:    0px 2px 2px 0px rgba(50, 50, 50, 0.65);
+box-shadow:         0px 2px 2px 0px rgba(50, 50, 50, 0.65);
 }
