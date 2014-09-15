@@ -112,3 +112,39 @@
 .text-maroon {
     color: #85144b !important;
 }
+
+
+/* other shit */
+img {
+    max-width: 100%important;
+}
+.pad {
+    padding: 10px;
+}
+.margin {
+    margin: 10px;
+}
+.inline {
+    display: inline;
+    width: auto;
+}
+.hide {
+    display: none !important;
+}
+.no-border {
+    border: 0px !important;
+}
+.no-padding {
+    padding: 0px !important;
+}
+.no-margin {
+    margin: 0px !important;
+}
+.no-shadow {
+    box-shadow: none!important;
+}
+.flat {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}

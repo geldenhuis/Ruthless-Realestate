@@ -16,19 +16,16 @@
     <link href="./assets/css/style.css" rel="stylesheet">
     <link href="./assets/css/colors.css" rel="stylesheet">
     <link href="./assets/css/box.css" rel="stylesheet">
+    <link href="./assets/css/sidebar.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
 </head>
 
 
@@ -156,15 +153,14 @@
                                 <tbody class="searchable">
                                     <?php while ($row=oci_fetch_array ($stmt)) {
                                             echo "<tr>";
-                                            echo "<td>$row[0]</td>";
-                                            echo "<td>$row[1]</td>";
-                                            echo "<td>$row[2]</td>";
-                                            echo "<td>$row[3]</td>";
-                                            echo "<td>$row[4]</td>";
+                                            echo "<td class='id'>$row[0]</td>";
+                                            echo "<td class='first'>$row[1]</td>";
+                                            echo "<td class='second'>$row[2]</td>";
+                                            echo "<td class='address'>$row[3]</td>";
+                                            echo "<td class='phone'>$row[4]</td>";
                                             echo "<td>";
-                                            echo "<button data-toggle='modal' data-target='.edit-modal' class='btn btn-danger'>";
-                                            echo "<i class='fa fa-edit'></i>";
-                                            echo " Edit";
+                                            echo "<button data-toggle='modal' data-target='.edit-modal' class='edit btn btn-danger'>";
+                                            echo "<i class='fa fa-edit'></i> Edit";
                                             echo "</button>";
                                             echo "</td>";
                                             echo "</tr>";
@@ -178,11 +174,10 @@
 
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
 
-                        <form method="POST" action="./generate-pdf.php">
-                            <button class="btn btn-primary" type=SUBMIT action=""><i class="fa fa-download"></i> Download as PDF</button>
-                            <a class="btn btn-primary"><i class="fa fa-envelope"></i> Email Mailing List</a>
-                        </form>
-
+                            <button id="downPDF" data-loading-text='<i class="fa fa-spinner fa-spin"></i> Generating PDF' class="btn btn-primary" type="submit">
+                                <i class="fa fa-download"></i>
+                                Download as PDF
+                            </button>
                     </div>
                 </div>
             </div>
@@ -196,35 +191,46 @@
                             <h3>Edit Client Details</h3>
                         </div>
                         <div class="modal-body">
-                            <form class="contact" name="contact">
-                                <label class="label" for="name">Your Name</label>
+                            <form>
+                                <label for="name">First Name</label>
                                 <br>
-                                <input type="text" name="name" class="input-xlarge">
+                                <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label class="label" for="email">Your E-mail</label>
+                                <label for="name">First Name</label>
                                 <br>
-                                <input type="email" name="email" class="input-xlarge">
+                                <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label class="label" for="message">Enter a Message</label>
+                                <label for="name">First Name</label>
                                 <br>
-                                <textarea name="message" class="input-xlarge"></textarea>
+                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <br>
+                                <label for="name">First Name</label>
+                                <br>
+                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <br>
+                                <label for="name">First Name</label>
+                                <br>
+                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <br>
+
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <input class="btn btn-danger" type="submit" value="Save" id="submit">
+                            <input class="btn btn-danger" type="submit" value="Save" id="update">
                             <a href="#" class="btn" data-dismiss="modal">Cancel</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </aside>
+
+        <a href="<?php echo "showsource.php?page=customers.php"; ?>" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
+
     </div>
 
-    <!-- JQuery Script for filtering customer table: hides the non matching <tr> objects -->
-    <script type=text/javascript>
-        $(document).ready(function () {
-            (function ($) {
+    <script>
+        //Filter the table by hiding non-matching rows on keyup
+        $(function ($) {
                 $('#filter').keyup(function () {
                     var rex = new RegExp($(this).val(), 'i');
                     $('.searchable tr').hide();
@@ -232,7 +238,33 @@
                         return rex.test($(this).text());
                     }).show();
                 })
-            }(jQuery));
+        }(jQuery));
+
+
+        //When Edit button is clicked find the client ID
+        $(".edit").click(function() {
+            //better option is to select the table and .each the columns to array
+            var $row = $(this).closest("tr");
+            var $id = $row.find(".id").text();
+            $("#edit-name").val(id);
+
+        });
+
+
+        //Need to finish by modding generate-pdf to return zip to force d/l
+        $('#downPDF').click(function(){
+            var btn = $(this)
+            btn.button('loading');
+            $.get( "generate-pdf.php", function( data ) {
+                btn.button('reset')
+                window.location.href = data
+            });
+
+        });
+
+        $('#update').click(function(){
+           alert('fuck this');
+
         });
     </script>
 

@@ -16,37 +16,20 @@
     <link href="./assets/css/style.css" rel="stylesheet">
     <link href="./assets/css/colors.css" rel="stylesheet">
     <link href="./assets/css/box.css" rel="stylesheet">
+    <link href="./assets/css/sidebar.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <!-- Maybe Implement
-    <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="./assets/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').dataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "./server_side.php"
-            });
-        });
-    </script>
-    -->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
 </head>
 
 
-<body class="skin-blue">
+<body class="skin-blue" style="font-family: HelveticaNeue-Light; font-weight: 300;">
     <header class="header">
         <a href="index.html" class="logo">
             Administration
@@ -156,6 +139,8 @@
                 </div>
         </aside>
         </div>
+
+
 
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/retina.min.js"></script>
