@@ -29,7 +29,7 @@
 </head>
 
 
-<body class="skin-blue" style="font-family: HelveticaNeue-Light; font-weight: 300;">
+<body style="font-family: HelveticaNeue-Light; font-weight: 300;">
     <header class="header">
         <a href="index.html" class="logo">
             Administration
@@ -117,25 +117,27 @@
                         </div>
                         <hr>
 
-                        <?php include( "remoteconnection.php" ); $conn=oci_connect($UName,$PWord,$DB); $query="SELECT * FROM customer" ; $stmt=oci_parse($conn, $query); oci_execute($stmt); ?>
-
                         <!--- Temp Kludge hack to enable fixed header -->
                         <table class="table table-striped">
 
-                            <col style="width:10%" />
-                            <col style="width:18%" />
-                            <col style="width:18%" />
-                            <col style="width:18%" />
-                            <col style="width:18%" />
-                            <col style="width:18%" />
+                                <col style="width:5%" />
+                                <col style="width:10%" />
+                                <col style="width:15%" />
+                                <col style="width:10%" />
+                                <col style="width:5%" />
+                                <col style="width:10%" />
+                                <col style="width:5%" />
+                                <col style="width:5%" />
 
                             <thead>
                                 <tr style="text-align: center;">
-                                    <th>#</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
+                                    <th>ID#</th>
+                                    <th>Name</th>
                                     <th>Address</th>
+                                    <th>Suburb</th>
+                                    <th>State</th>
                                     <th>Phone Number</th>
+                                    <th>Mailing List</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -143,24 +145,36 @@
 
                         <div style="height: 350px; overflow-y: scroll;">
                             <table class="table table-striped">
+
+                                <col style="width:5%" />
                                 <col style="width:10%" />
-                                <col style="width:18%" />
-                                <col style="width:18%" />
-                                <col style="width:18%" />
-                                <col style="width:18%" />
-                                <col style="width:18%" />
+                                <col style="width:15%" />
+                                <col style="width:10%" />
+                                <col style="width:5%" />
+                                <col style="width:10%" />
+                                <col style="width:5%" />
+                                <col style="width:5%" />
+
+                                <!-- Try to connect to DB and -->
+                                <?php include( "remoteconnection.php" );
+                                    $conn=oci_connect($UName,$PWord,$DB);
+                                    $query="SELECT * FROM client" ;
+                                    $stmt=oci_parse($conn, $query);
+                                    oci_execute($stmt);
+                                ?>
 
                                 <tbody class="searchable">
                                     <?php while ($row=oci_fetch_array ($stmt)) {
                                             echo "<tr>";
                                             echo "<td class='id'>$row[0]</td>";
-                                            echo "<td class='first'>$row[1]</td>";
-                                            echo "<td class='second'>$row[2]</td>";
+                                            echo "<td class='name'>$row[1] $row[2]</td>";
                                             echo "<td class='address'>$row[3]</td>";
-                                            echo "<td class='phone'>$row[4]</td>";
-                                            echo "<td>";
-                                            echo "<button data-toggle='modal' data-target='.edit-modal' class='edit btn btn-danger'>";
-                                            echo "<i class='fa fa-edit'></i> Edit";
+                                            echo "<td class='suburb'>$row[4]</td>";
+                                            echo "<td class='state'>$row[5]</td>";
+                                            echo "<td class='phone'>$row[8]</td>";
+                                            echo "<td class='mailinglist'>$row[10]</td>";
+                                            echo "<td><div class='btn-group'><button data-toggle='modal' data-target='.edit-modal' class='edit btn btn-info btn-sm'>";
+                                            echo "Edit <i class='fa fa-edit'></i>";
                                             echo "</button>";
                                             echo "</td>";
                                             echo "</tr>";
@@ -188,9 +202,10 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
-                            <h3>Edit Client Details</h3>
+                            <h3>Client Details</h3>
                         </div>
                         <div class="modal-body">
+
                             <form>
                                 <label for="name">First Name</label>
                                 <br>
@@ -212,7 +227,7 @@
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-
+                                <button class="btn btn-link">Edit</button>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -224,7 +239,7 @@
             </div>
         </aside>
 
-        <a href="<?php echo "showsource.php?page=customers.php"; ?>" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
+        <a href="showsource.php?page=customers.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
 
     </div>
 
@@ -242,12 +257,14 @@
 
 
         //When Edit button is clicked find the client ID
+        $(function(){
         $(".edit").click(function() {
             //better option is to select the table and .each the columns to array
             var $row = $(this).closest("tr");
             var $id = $row.find(".id").text();
             $("#edit-name").val(id);
 
+        });
         });
 
 

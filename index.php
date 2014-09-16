@@ -112,7 +112,7 @@
                             <hr>
                             <i class="fa fa-home fa-4x"></i>
                             <h4>Total Properties</h4>
-                            <h2 class="text-blue">1203</h2>
+                            <h2 id="totalProps" class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
                                 <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Property DB</a>
@@ -125,7 +125,7 @@
                             <hr>
                             <i class="fa fa-user fa-4x"></i>
                             <h4>Total Clients</h4>
-                            <h2 class="text-blue">340</h2>
+                            <h2 id="totalClients" class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
                                 <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Client DB</a>
@@ -138,7 +138,7 @@
                             <hr>
                             <i class="fa fa-newspaper-o fa-4x"></i>
                             <h4>Active Listings</h4>
-                            <h2 class="text-blue">34</h2>
+                            <h2 id='totalListings' class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
                                 <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Listings</a>
@@ -151,7 +151,7 @@
                             <hr>
                             <i class="fa fa-dollar fa-4x"></i>
                             <h4>Monthly Sales</h4>
-                            <h2 id="monSales" class="text-blue">34</h2>
+                            <h2 id="totalSales" class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
                                 <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Sales</a>
@@ -170,9 +170,13 @@
         </aside>
 
         <script>
+            //Pull statistics using COUNT from the DB
             $(function () {
                 $.getJSON("get-stats.php", function (data) {
-                    $('#monSales').text(data.salTotal);
+                    $('#totalSales').text(data.saleTotal);
+                    $('#totalClients').text(data.cusTotal);
+                    $('#totalListings').text(data.listTotal);
+                    $('#totalProps').text(data.propTotal);
                 });
             });
         </script>

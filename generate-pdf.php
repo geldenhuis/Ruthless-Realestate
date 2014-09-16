@@ -3,7 +3,7 @@
     //Connect to DB
     include( "remoteconnection.php" );
     $conn=oci_connect($UName,$PWord,$DB);
-    $query="SELECT * FROM customer" ;
+    $query="SELECT * FROM client" ;
     $stmt=oci_parse($conn, $query);
     oci_execute($stmt);
 
@@ -28,13 +28,14 @@
                                 <th>Last Name</th>
                                 <th>Address</th>
                                 <th>Phone Number</th>
+                                <th>Mailing List</th>
                             </tr>
                         </thead>
                         <tbody>';
 
                         //Loop through and add results to html
                         while ($row=oci_fetch_array ($stmt)) {
-                            $fuck .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr><tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
+                            $fuck .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]$row[4]$row[5]</td><td>$row[8]</td><td>$row[10]</td></tr>";
                         };
 
 
