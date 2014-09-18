@@ -77,10 +77,10 @@
 
 
 <body>
-    <div class="navbar nav-header" style="background:#fff;">
+    <!-- <div class="navbar nav-header" style="background:#fff;">
         <div class="header">
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <form class="form-signin">
             <h1 style="color: #fff">Welcome </h1>
