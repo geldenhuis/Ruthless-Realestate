@@ -258,13 +258,13 @@
 
         //When Edit button is clicked find the client ID
         $(function(){
-        $(".edit").click(function() {
-            //better option is to select the table and .each the columns to array
-            var $row = $(this).closest("tr");
-            var $id = $row.find(".id").text();
-            $("#edit-name").val(id);
+            $(".edit").click(function() {
+                //better option is to select the table and .each the columns to array
+                var $row = $(this).closest("tr");
+                var $id = $row.find(".id").text();
+                $("#edit-name").val(id);
 
-        });
+            });
         });
 
 
@@ -278,6 +278,7 @@
             });
 
         });
+
 
         $('#update').click(function(){
            alert('fuck this');
