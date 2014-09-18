@@ -64,8 +64,8 @@
                         </a>
                     </li>
                     <li class="active">
-                        <a href="customers.php">
-                            <i class="fa fa-users"></i>  <span>Customers</span>
+                        <a href="clients.php">
+                            <i class="fa fa-users"></i>  <span>Clients</span>
                         </a>
                     </li>
                     <li>
@@ -100,12 +100,12 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-users"></i> Home</a>
                     </li>
-                    <li>Customer Database</li>
+                    <li>Client Database</li>
                 </ol>
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Customer Database</h2>
+                <h2 class="pad">Client Database</h2>
                 <div class="box box-solid flat">
                     <div class="box-body">
                         <label style="font-family: HelveticaNeue-Light; font-size: 12px; font-weight: 300; padding-left:0px;">
@@ -239,7 +239,7 @@
             </div>
         </aside>
 
-        <a href="showsource.php?page=customers.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
+        <a href="showsource.php?page=clients.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
 
     </div>
 
