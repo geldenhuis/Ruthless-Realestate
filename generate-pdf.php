@@ -8,7 +8,7 @@
     oci_execute($stmt);
 
     //HTML for the table we want to use to create a PDF
-    $fuck = '
+    $html = '
                     <h1>Client DB List - ' . date('d/m/Y') . '</h1>
                     <hr>
                     <p>
@@ -35,12 +35,12 @@
 
                         //Loop through and add results to html
                         while ($row=oci_fetch_array ($stmt)) {
-                            $fuck .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]$row[4]$row[5]</td><td>$row[8]</td><td>$row[10]</td></tr>";
+                            $html .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]$row[4]$row[5]</td><td>$row[8]</td><td>$row[10]</td></tr>";
                         };
 
 
                         //Add closing tags
-                        $fuck .= '</tbody></table>';
+                        $html .= '</tbody></table>';
 
     //Release and close the connection to the DB
     oci_free_statement($stmt);
@@ -56,7 +56,7 @@
     //Set Footer format is left|center|right
     $mpdf->SetFooter($fname . '|{PAGENO}| ' . date('d/m/Y h:i A') );
     $mpdf->WriteHTML($stylesheet,1);
-    $mpdf->WriteHTML($fuck, 2);
+    $mpdf->WriteHTML($html, 2);
     //Create PDF - F flag = write to file
     $mpdf->Output($fname, 'F');
 
