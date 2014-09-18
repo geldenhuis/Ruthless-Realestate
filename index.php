@@ -29,7 +29,7 @@
 </head>
 
 
-<body class="skin-blue" style="font-family: HelveticaNeue-Light; font-weight: 300;">
+<body style="font-family: HelveticaNeue-Light; font-weight: 300;">
     <header class="header">
         <a href="index.html" class="logo">
             Administration
