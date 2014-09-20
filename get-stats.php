@@ -6,6 +6,8 @@
     //Fix for incorrect content type in the return headers (not always a problem)
     header('Content-Type: application/json');
 
+
+
     /*
         Get the stats we need form the DB using COUNT statements
     */
@@ -27,7 +29,7 @@
     $row=oci_fetch_array ($stmt);
 
     //Create array and return the stats in JSON format to the JQuery AJAX listener
-    $arr = array ('propTotal'=>$row[1],'cusTotal'=>$row[0],'listTotal'=>3,'saleTotal'=>4);
+    $arr = array ('cusTotal'=>$row[0],'propTotal'=>$row[2],'listTotal'=>3,'saleTotal'=>4);
     echo json_encode($arr);
 ?>
 

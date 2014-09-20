@@ -85,9 +85,11 @@
         <form class="form-signin">
             <h1 style="color: #fff">Welcome </h1>
             <h4 style="color: #fff">Please login to continue</h4>
-            <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" />
-            <input type="password" class="form-control" name="password" placeholder="Password" required="" />
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+            <form method="post" action="./client.php">
+                <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+            </form>
         </form>
     </div>
 </body>

@@ -105,7 +105,8 @@
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Client Database</h2>
+                <h2 class="pad">Client Database<button id="addcust" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Client</button></h2>
+
                 <div class="box box-solid flat">
                     <div class="box-body">
                         <label style="font-family: HelveticaNeue-Light; font-size: 12px; font-weight: 300; padding-left:0px;">
@@ -211,23 +212,26 @@
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label for="name">First Name</label>
+                                <label for="name">Family Name</label>
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label for="name">First Name</label>
+                                <label for="name">Address</label>
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label for="name">First Name</label>
+                                <label for="name">Suburb</label>
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <label for="name">First Name</label>
+                                <input type="text">
+                                <select>
+
+                                </select>
                                 <br>
                                 <input type="text" id="edit-name" name="name" class="input-xlarge">
                                 <br>
-                                <button class="btn btn-link">Edit</button>
+
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -268,21 +272,25 @@
         });
 
 
-        //Need to finish by modding generate-pdf to return zip to force d/l
+        //On click set the button to 'loading', generate the PDF and change page to view it
         $('#downPDF').click(function(){
             var btn = $(this)
             btn.button('loading');
             $.get( "generate-pdf.php", function( data ) {
                 btn.button('reset')
-                window.location.href = data
+                window.location = ( data )
             });
 
         });
 
 
         $('#update').click(function(){
-           alert('fuck this');
+            return confirm("Are you sure?");
+        });
 
+        $('#addcust').click(function(){
+            var btn = $(this)
+            alert('Fuck this')
         });
     </script>
 

@@ -64,8 +64,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="customers.php">
-                            <i class="fa fa-users"></i>  <span>Customers</span>
+                        <a href="clients.php">
+                            <i class="fa fa-users"></i>  <span>Clients</span>
                         </a>
                     </li>
                     <li>

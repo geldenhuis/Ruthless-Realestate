@@ -59,7 +59,6 @@
     $mpdf->WriteHTML($html, 2);
     //Create PDF - F flag = write to file
     $mpdf->Output($fname, 'F');
-
     //Return filelocation to ajax listener
     echo $fname;
     exit;
