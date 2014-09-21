@@ -15,12 +15,13 @@
     <title>Admin - Dashboard</title>
 
     <!-- CSS Styles -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+
     <link href="./assets/css/colors.css" rel="stylesheet">
     <link href="./assets/css/box.css" rel="stylesheet">
     <link href="./assets/css/sidebar.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -165,7 +166,7 @@
                                 <!-- Try to connect to DB and -->
                                 <?php include( "remoteconnection.php" );
                                     $conn=oci_connect($UName,$PWord,$DB);
-                                    $query="SELECT * FROM client" ;
+                                    $query="SELECT * FROM client";
                                     $stmt=oci_parse($conn, $query);
                                     oci_execute($stmt);
                                 ?>
