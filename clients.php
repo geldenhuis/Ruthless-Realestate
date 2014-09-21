@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,7 +107,11 @@
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Client Database<button id="addcust" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Client</button></h2>
+                <h2 class="pad">Client Database
+                    <button id="addcust" class='pad btn btn-default' style="float: right;" data-toggle='modal' data-target='.add-modal'>
+                        <i class="fa fa-plus"></i> Add Client
+                    </button>
+                </h2>
 
                 <div class="box box-solid flat">
                     <div class="box-body">
@@ -166,14 +172,25 @@
 
                                 <tbody class="searchable">
                                     <?php while ($row=oci_fetch_array ($stmt)) {
+
+                                            // Had to get creative with the trim and rtrim functions as php was adding lots of whitespace
+                                            // and breaking the JQuery instant filter
                                             echo "<tr>";
-                                            echo "<td class='id'>$row[0]</td>";
-                                            echo "<td class='name'>$row[1] $row[2]</td>";
+                                            echo "<td class='id'>" . trim($row[0]) . "</td>";
+                                            echo "<td class='name'>" . rtrim($row[1]);
+                                            echo " " . rtrim($row[2]) . "</td>";
                                             echo "<td class='address'>$row[3]</td>";
                                             echo "<td class='suburb'>$row[4]</td>";
                                             echo "<td class='state'>$row[5]</td>";
                                             echo "<td class='phone'>$row[8]</td>";
-                                            echo "<td class='mailinglist'>$row[10]</td>";
+
+                                            if ($row[10] =="y"){
+                                                echo "<td class='mailinglist'><i class='fa fa-check'></i></td>";
+                                            }
+                                            else{
+                                                 echo "<td class='mailinglist'></td>";
+                                            }
+
                                             echo "<td><div class='btn-group'><button data-toggle='modal' data-target='.edit-modal' class='edit btn btn-info btn-sm'>";
                                             echo "Edit <i class='fa fa-edit'></i>";
                                             echo "</button>";
@@ -197,7 +214,7 @@
                 </div>
             </div>
 
-
+            <!-- Edit client dialog box -->
             <div id="editModal" class="modal edit-modal" tabindex="-1" aria-hidden="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -206,41 +223,48 @@
                             <h3>Client Details</h3>
                         </div>
                         <div class="modal-body">
-
                             <form>
                                 <label for="name">First Name</label>
                                 <br>
-                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <input type="text" id="edit-fname" class="input-xlarge">
                                 <br>
                                 <label for="name">Family Name</label>
                                 <br>
-                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <input type="text" id="edit-lname" class="input-xlarge">
                                 <br>
-                                <label for="name">Address</label>
+                                <label>Subscribed to Mailing List</label>
                                 <br>
-                                <input type="text" id="edit-name" name="name" class="input-xlarge">
+                                <input type="checkbox" id="edit-mlist">
                                 <br>
-                                <label for="name">Suburb</label>
-                                <br>
-                                <input type="text" id="edit-name" name="name" class="input-xlarge">
-                                <br>
-                                <input type="text">
-                                <select>
-
-                                </select>
-                                <br>
-                                <input type="text" id="edit-name" name="name" class="input-xlarge">
-                                <br>
-
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <input class="btn btn-danger" type="submit" value="Save" id="update">
-                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                            <button class="btn btn-danger" type="submit" value="Apply" id="update" data-loading-text='Changes Saved'>Update</button>
+                            <a href="#" class="btn" data-dismiss="modal">Done</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Add Client Modal -->
+            <div id="addModal" class="modal add-modal" tab-index="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
+                            <h3>Create Client</h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <form>
+                                <label>Add Customer Details</label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </aside>
 
         <a href="showsource.php?page=clients.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
@@ -259,46 +283,64 @@
                 })
         }(jQuery));
 
-
         //When Edit button is clicked find the client ID
         $(function(){
             $(".edit").click(function() {
                 //better option is to select the table and .each the columns to array
                 var $row = $(this).closest("tr");
                 var $id = $row.find(".id").text();
-                $("#edit-name").val(id);
 
+                // We could do all the data manipulation of the data using JQuery which would be quicker
+                // However this unit is primarily PHP based we will request the data from the DB and return the data as JSON.
+
+                $.post('./manageclients.php', { action: "retrieve", id: $id }, function(data) {
+                    $('#edit-fname').val(data.fname);
+                    $('#edit-lname').val(data.lname);
+                    // Because we use a single char to check if the client is on the mailing list
+                    // we need to convert that to a boolean value to set the checkbox
+                    // (alternatively we could just use a listbox an negate this requirement).
+                    if (data.mlChkVal == "y"){
+                        $('#edit-mlist').prop('checked', true);
+                    } else {
+                        $('#edit-mlist').prop('checked', false);
+                    }
+                }, 'json');
             });
         });
-
 
         //On click set the button to 'loading', generate the PDF and change page to view it
         $('#downPDF').click(function(){
             var btn = $(this)
+            // Swap the button state to 'loading'
+            // because PDF generation can take a while and we need valid feedback
             btn.button('loading');
             $.get( "generate-pdf.php", function( data ) {
+                // Reset the button state
                 btn.button('reset')
+                // Change to the PDF location
                 window.location = ( data )
             });
-
         });
 
-
         $('#update').click(function(){
-            return confirm("Are you sure?");
+            var btn = $(this)
+            btn.button('loading');
+            if ($('#edit-mlist').is(':checked')){
+                alert("Checked");
+            }
+            else{
+                alert("Not Checked");
+            }
+            btn.button('reset');
         });
 
         $('#addcust').click(function(){
             var btn = $(this)
-            alert('Fuck this')
         });
     </script>
-
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
 </body>
-
-
 </html>
 
 
