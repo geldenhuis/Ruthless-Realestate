@@ -1,18 +1,14 @@
 <?php
-    extract('$_POST');
-    include ('./remoteconnection.php');
+    //Set action, type_id and type_name
+    $action = $_REQUEST['action'];
+    $id = $_REQUEST['id'];
 
-    switch ($action) {
-        case 'add':
-            $query = "INSERT INTO clients VALUES";
+    switch ( $action ) {
+        case "add":
+            echo "Adding";
             break;
-
-        case 'delete':
-            $query = "DELETE FROM table_name WHERE some_column=some_value";
-            break;
-
-        case 'update':
-            $query = "UPDATE clients SET column1=value1,column2=value2 WHERE some_column=some_value";
+        case "delete":
+            echo "Deleted";
             break;
     }
 ?>
