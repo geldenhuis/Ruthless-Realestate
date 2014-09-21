@@ -85,13 +85,36 @@
         <form class="form-signin">
             <h1 style="color: #fff">Welcome </h1>
             <h4 style="color: #fff">Please login to continue</h4>
-            <form method="post" action="./client.php">
-                <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" />
-                <input type="password" class="form-control" name="password" placeholder="Password" required="" />
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-            </form>
+            <input id="uname" type="text" class="form-control" name="uname" placeholder="Username" required="" autofocus="" />
+            <input id="pword" type="password" class="form-control" name="pword" placeholder="Password" required="" />
+            <input id="login-btn" class="btn btn-lg btn-primary btn-block" value="Login"><br>
+            <div id="AddAlert" class="flash alert alert-danger" role="alert" style="display: none">
+                <strong>Warning!</strong> Incorrect username or password please check your details and try again.
+            </div>
         </form>
     </div>
 </body>
+
+<script>
+    $("#login-btn").click(function () {
+        //Hide the alert in-case it's visible.
+        $("#AddAlert").hide();
+
+        var $username = $("#uname").val();
+        var $password = $("#pword").val();
+
+        // Post the details to process-login.php
+        $.post("process-login.php", {
+            uname: $username,
+            pword: $password
+        }, function (data) {
+            if (data == "Valid User") {
+                window.location = ('./index.php');
+            } else {
+                $("#AddAlert").show();
+            }
+        });
+    });
+</script>
 
 </html>
