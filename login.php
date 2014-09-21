@@ -72,6 +72,7 @@
             border-radius: 3px;
             border: none;
         }
+
     </style>
 </head>
 
@@ -85,9 +86,11 @@
         <form class="form-signin">
             <h1 style="color: #fff">Welcome </h1>
             <h4 style="color: #fff">Please login to continue</h4>
-            <input id="uname" type="text" class="form-control" name="uname" placeholder="Username" required="" autofocus="" />
-            <input id="pword" type="password" class="form-control" name="pword" placeholder="Password" required="" />
-            <input id="login-btn" class="btn btn-lg btn-primary btn-block" value="Login"><br>
+            <input id="uname" type="text" class="form-control" name="uname" placeholder="Username" required autofocus="" />
+            <input id="pword" type="password" class="form-control" name="pword" placeholder="Password" required />
+            <div class="err-status" style="display:none; color: red;">Error</div>
+            <input id="login-btn" class="btn btn-lg btn-primary btn-block" value="Login">
+            <br>
             <div id="AddAlert" class="flash alert alert-danger" role="alert" style="display: none">
                 <strong>Warning!</strong> Incorrect username or password please check your details and try again.
             </div>
@@ -112,6 +115,9 @@
                 window.location = ('./index.php');
             } else {
                 $("#AddAlert").show();
+                $('#uname').css('border-color', 'red');
+                $('#pword').css('border-color', 'red');
+                $("#uname").focus();
             }
         });
     });

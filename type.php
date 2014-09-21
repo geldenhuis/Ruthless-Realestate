@@ -13,13 +13,13 @@
     <title>Admin - Dashboard</title>
 
     <!-- CSS Styles -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+
     <link href="./assets/css/colors.css" rel="stylesheet">
     <link href="./assets/css/box.css" rel="stylesheet">
     <link href="./assets/css/sidebar.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="./assets/css/style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -106,20 +106,16 @@
             <div class="col-xs-12 pad">
                 <h2 class="pad">Property Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Property Type</button></h2>
 
-                    <div class="pad box box-solid flat row">
-                    <div class="box-body col-md-6">
+                    <div class="pad box box-solid flat">
+                    <div class="box-body">
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr style="text-align: center;">
-                                <th>ID#</th>
-                                <th>Name</th>
-                                </tr>
-                            </thead>
-                        </table>
 
-                        <div style="height: 350px;overflow-y: scroll;">
+                        <div style="height: 550px;overflow-y: scroll;">
                             <table class="table table-striped">
+                            <col style="width:3%;" />
+                            <col style="width:87%;" />
+                            <col style="width:9%;" />
+
                                 <!-- Try to connect to DB and -->
                                 <?php include( "remoteconnection.php" );
                                     $conn=oci_connect($UName,$PWord,$DB);
@@ -135,7 +131,7 @@
                                             echo "<tr>";
                                             echo "<td class='id'>$row[0]</td>";
                                             echo "<td class='name'>$row[1]</td>";
-                                            echo "<td><button class='deltype btn btn-default'>Delete</button></td>";
+                                            echo "<td><button class='deltype btn btn-info'>Delete</button></td>";
                                             echo "</tr>";
                                         }
                                     ?>
@@ -143,12 +139,6 @@
                             </table>
                         </div>
 
-                        <div class="col-md-5">
-                            <div class="well">
-                                <h4>Add a Property Type</h4>
-                                <p>Enter a Property Type and click add, please don't use the following characters: </p>
-                                </div>
-                            </div>
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
                     </div>
                 </div>
@@ -188,13 +178,14 @@
                 //Delete Item using manage.php
                 $.post( "managetype.php", { action: "delete", id: $id })
 
-                // Check If the item was deleted we use JQuery to hide the row as it's quicker
-                // than going to managetype.php and hitting the DB for updated results
-                // to redraw the whole table and allows multiple deletes quickly.
-                // the table will be redrawn when the page is reloaded anyway.
+                // Check If the item was deleted
+                // Then we use JQuery to hide the row as it's quicker than going to managetype.php
+                // Hitting the DB for updated results and redrawing the whole table
+                // The table will be redrawn when the page is reloaded anyway.
                 // TL;DR - Done for performance reasons vs using PHP
                 .done(function(data){
-                    if (data == "deleted") {
+                    if (data == "Deleted") {
+                        alert("Item Deleted");
                         $row.hide();
                     }
                     else {
