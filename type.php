@@ -106,9 +106,10 @@
             <div class="col-xs-12 pad">
                 <h2 class="pad">Property Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Property Type</button></h2>
 
-                <div class="box box-solid flat">
-                    <div class="box-body">
-                        <table class="table table-striped" style="max-width: 40%;">
+                    <div class="pad box box-solid flat row">
+                    <div class="box-body col-md-6">
+
+                        <table class="table table-striped">
                             <thead>
                                 <tr style="text-align: center;">
                                 <th>ID#</th>
@@ -117,15 +118,15 @@
                             </thead>
                         </table>
 
-                        <div style="height: 350px; max-width:40%; overflow-y: scroll;">
+                        <div style="height: 350px;overflow-y: scroll;">
                             <table class="table table-striped">
                                 <!-- Try to connect to DB and -->
                                 <?php include( "remoteconnection.php" );
-                                $conn=oci_connect($UName,$PWord,$DB);
-                                //loop through all id's
-                                $query="SELECT * FROM property_type" ;
-                                $stmt=oci_parse($conn, $query);
-                                oci_execute($stmt);
+                                    $conn=oci_connect($UName,$PWord,$DB);
+                                    //loop through all id's
+                                    $query="SELECT * FROM property_type" ;
+                                    $stmt=oci_parse($conn, $query);
+                                    oci_execute($stmt);
                                 ?>
 
                                 <tbody class="searchable">
@@ -142,12 +143,12 @@
                             </table>
                         </div>
 
-                        <div style="max-width:60%;">
-                        <div clas="well">
-                            <h4>Add a Property Type</h4>
-                            <p>Enter a Property Type and click add, please don't use the following charachters: </p>
+                        <div class="col-md-5">
+                            <div class="well">
+                                <h4>Add a Property Type</h4>
+                                <p>Enter a Property Type and click add, please don't use the following characters: </p>
+                                </div>
                             </div>
-                        </div>
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
                     </div>
                 </div>
@@ -194,7 +195,6 @@
                 // TL;DR - Done for performance reasons vs using PHP
                 .done(function(data){
                     if (data == "deleted") {
-                        confirm("Are you sure you want to delete this item?")
                         $row.hide();
                     }
                     else {
