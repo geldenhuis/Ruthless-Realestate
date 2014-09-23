@@ -98,6 +98,7 @@
     </div>
 </body>
 
+
 <script>
     $("#login-btn").click(function () {
         //Hide the alert in-case it's visible.
@@ -111,6 +112,7 @@
             uname: $username,
             pword: $password
         }, function (data) {
+            alert(data);
             if (data == "Valid User") {
                 window.location = ('./index.php');
             } else {

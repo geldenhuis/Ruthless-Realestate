@@ -1,9 +1,12 @@
 <?php
+  session_start();
+  //create MDS constants
   //create MDS constants
   define("MONASH_DIR", "ldap.monash.edu.au");
   define("MONASH_FILTER","o=Monash University, c=au");
 
-   $LDAPconn=@ldap_connect(MONASH_DIR);
+
+$LDAPconn=@ldap_connect(MONASH_DIR);
     if($LDAPconn)
     {
       $LDAPsearch=@ldap_search($LDAPconn,MONASH_FILTER,
@@ -38,6 +41,7 @@
     if($LDAPresult)
     {
       echo "Valid User";
+      $_SESSION['loggedin'] = true;
     }
     else
     {
