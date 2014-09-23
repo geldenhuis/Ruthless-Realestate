@@ -3,8 +3,12 @@
     //Connect to DB
     include( "remoteconnection.php" );
     $conn=oci_connect($UName,$PWord,$DB);
+
+    //Select all clients
     $query="SELECT * FROM client" ;
     $stmt=oci_parse($conn, $query);
+
+    //Run Query
     oci_execute($stmt);
 
     //HTML for the table we want to use to create a PDF
@@ -46,20 +50,30 @@
     oci_free_statement($stmt);
     oci_close($conn);
 
-    //Load MPDF and create new PDF object
+    //Load MPDF library
     include("./mpdf/mpdf.php");
+
+    //Instatiate a new mPDF object
     $mpdf = new mPDF();
+
     //Set Filename
     $fname = 'Client List - ' . date('dmy') .'.pdf';
-    //Add Stylesheet
+
+    //Add Stylesheet to input buffer
     $stylesheet = file_get_contents('./assets/css/pdf-style.css');
+
     //Set Footer format is left|center|right
     $mpdf->SetFooter($fname . '|{PAGENO}| ' . date('d/m/Y h:i A') );
+
+    //Add the stylesheets and html to the pdf buffer
     $mpdf->WriteHTML($stylesheet,1);
     $mpdf->WriteHTML($html, 2);
-    //Create PDF - F flag = write to file
+
+    //Create PDF - F flag = write to file rather than the response.
     $mpdf->Output($fname, 'F');
-    //Return filelocation to ajax listener
+
+    //Return filelocation to ajax listener so we can access it.
     echo $fname;
+
     exit;
 ?>
