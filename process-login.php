@@ -41,6 +41,7 @@ $LDAPconn=@ldap_connect(MONASH_DIR);
     if($LDAPresult)
     {
       echo "Valid User";
+      $_SESSION['userid'] = true;
       $_SESSION['loggedin'] = true;
     }
     else

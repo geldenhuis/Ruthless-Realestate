@@ -1,4 +1,8 @@
-<?php ob_start(); ?>
+<?php
+    ob_start();
+    session_start();
+    if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
+?>
 <!-- TODO LIST: Updated - 29th September 6pm
 
     - Implement POST's for add and delete
@@ -455,7 +459,6 @@
 
             // Details Vars - This is a retarded way to do this
             var $fname = $("#edit-fname").val();
-            alert($fname);
             var $lname = $("#edit-lname").val();
             var $phone = $("#edit-phone").val();
             var $mobile = $("#edit-mobile").val();
@@ -463,7 +466,6 @@
             var $address = $("#edit-street").val();
             var $suburb = $("#edit-suburb").val();
             var $state = $( "#edit-state option:selected" ).text();
-            alert($state);
             var $postcode = $("#edit-pcode").val();
 
             if ($('#edit-mlist').is(':checked')){
