@@ -1,4 +1,14 @@
 <?php ob_start(); ?>
+<!-- TODO LIST: Updated - 29th September 6pm
+
+    - Finish Add Client Modal + Code
+    - Create Proper confirm modal
+    - Finish Update code
+    - Implement Dropdown State selection
+    - Implement input checking
+
+-->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +32,6 @@
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="./assets/css/style.css" rel="stylesheet">
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -154,15 +163,6 @@
                         <div style="height: 350px; overflow-y: scroll;">
                             <table class="table table-striped">
 
-                                <col style="width:5%" />
-                                <col style="width:10%" />
-                                <col style="width:15%" />
-                                <col style="width:10%" />
-                                <col style="width:5%" />
-                                <col style="width:10%" />
-                                <col style="width:5%" />
-                                <col style="width:5%" />
-
                                 <!-- Try to connect to DB and -->
                                 <?php include( "remoteconnection.php" );
                                     $conn=oci_connect($UName,$PWord,$DB);
@@ -185,7 +185,7 @@
                                             echo "<td class='state'>$row[5]</td>";
                                             echo "<td class='phone'>$row[8]</td>";
 
-                                            if ($row[10] =="y"){
+                                            if ($row[10] == "y"){
                                                 echo "<td class='mailinglist'><i class='fa fa-check'></i></td>";
                                             }
                                             else{
@@ -195,7 +195,8 @@
                                             echo "<td><div class='btn-group'><button data-toggle='modal' data-target='.edit-modal' class='edit btn btn-info btn-sm'>";
                                             echo "Edit <i class='fa fa-edit'></i>";
                                             echo "</button>";
-                                            echo "</td>";
+
+                                            echo "<button class='delete btn btn-danger btn-sm'>Delete</button></div></td>";
                                             echo "</tr>";
                                         }
                                     ?>
@@ -215,29 +216,78 @@
                 </div>
             </div>
 
+
             <!-- Edit client dialog box -->
             <div id="editModal" class="modal edit-modal" tabindex="-1" aria-hidden="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
-                            <h3>Client Details</h3>
+                            <h3>Client Details - # <span id="client-id"></span></h3>
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <label for="name">First Name</label>
-                                <br>
-                                <input type="text" id="edit-fname" class="input-xlarge">
-                                <br>
-                                <label for="name">Family Name</label>
-                                <br>
-                                <input type="text" id="edit-lname" class="input-xlarge">
-                                <br>
-                                <label>Subscribed to Mailing List</label>
-                                <br>
-                                <input type="checkbox" id="edit-mlist">
-                                <br>
-                            </form>
+                        <div class="modal-body row">
+                            <div class="col-md-6" style="padding-left: 20px;">
+                                <form class="client-info">
+
+                                    <label for="name">First Name</label>
+                                    <br>
+                                    <input type="text" id="edit-fname" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Family Name</label>
+                                    <br>
+                                    <input type="text" id="edit-lname" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Phone Number</label>
+                                    <br>
+                                    <input type="text" id="edit-phone" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Mobile Number</label>
+                                    <br>
+                                    <input type="text" id="edit-mobile" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Email</label>
+                                    <br>
+                                    <input type="text" id="edit-email" class="input-xlarge">
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" id="edit-mlist" />
+                                    <label for="edit-mlist">Subscribed to Mailing List</label>
+                            </div>
+                            <div class="col-md-6">
+                                    <label for="name">State</label>
+                                    <br>
+                                    <select>
+                                      <option value="volvo">VIC</option>
+                                      <option value="saab">NSW</option>
+                                      <option value="mercedes">QLD</option>
+                                      <option value="audi">NT</option>
+                                      <option value="audi">TAS</option>
+                                      <option value="audi">WA</option>
+                                      <option value="audi">ACT</option>
+                                      <option value="audi">SA</option>
+                                    </select>
+                                    <br>
+
+                                    <label for="name">Suburb</label>
+                                    <br>
+                                    <input type="text" id="edit-suburb" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Post Code</label>
+                                    <br>
+                                    <input type="text" id="edit-pcode" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Street Address</label>
+                                    <br>
+                                    <input type="text" id="edit-street" class="input-xlarge">
+                                    <br>
+                                </form>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger" type="submit" value="Apply" id="update" data-loading-text='Changes Saved'>Update</button>
@@ -287,16 +337,32 @@
         //When Edit button is clicked find the client ID
         $(function(){
             $(".edit").click(function() {
-                //better option is to select the table and .each the columns to array
+                // NOTE: Add a loading and spinner to the title to eliminate errs caused by latency.
+
+                // Clear all input fields otherwise there can be errors when we edit multiple entries.
+                // where it shows the previous data before updating to the current record.
+                $('.client-info').trigger("reset");
+
                 var $row = $(this).closest("tr");
                 var $id = $row.find(".id").text();
 
-                // We could do all the data manipulation of the data using JQuery which would be quicker
-                // However this unit is primarily PHP based we will request the data from the DB and return the data as JSON.
-
                 $.post('./manageclients.php', { action: "retrieve", id: $id }, function(data) {
+
+                    //Window Dressing
+                    $('#client-id').text($id);
+
+                    //Should just do this using the returned array and a loop
                     $('#edit-fname').val(data.fname);
                     $('#edit-lname').val(data.lname);
+                    $('#edit-phone').val(data.phone);
+                    $('#edit-mobile').val(data.mobile);
+                    $('#edit-email').val(data.email);
+
+                    //Address Stuff
+                    $('#edit-street').val(data.address);
+                    $('#edit-suburb').val(data.suburb);
+                    $('#edit-pcode').val(data.postcode);
+
                     // Because we use a single char to check if the client is on the mailing list
                     // we need to convert that to a boolean value to set the checkbox
                     // (alternatively we could just use a listbox an negate this requirement).
@@ -325,6 +391,8 @@
 
         $('#update').click(function(){
             var btn = $(this)
+
+            $.post ("manageclient.php", { action: ""})
             btn.button('loading');
             if ($('#edit-mlist').is(':checked')){
                 alert("Checked");
@@ -335,9 +403,31 @@
             btn.button('reset');
         });
 
-        $('#addcust').click(function(){
-            var btn = $(this)
+
+        $(function(){
+            $(".delete").click(function() {
+                var $row = $(this).closest("tr");
+                var $id = $row.find(".id").text();
+                //I am lazy and didn't want to create a proper dialog box for testing
+                // Implement later
+                if (window.confirm("Delete Record?")){
+                $.post( "manageclient.php", { action: "delete", id: $id })
+                .done(function(data){
+                    if (data == "Deleted") {
+                        $row.hide();
+                        alert("Record Deleted");
+                    }
+                    else {
+                        alert("An error occurred, item was not deleted");
+                    }
+                });
+                }
+                else{
+                    alert("Not deleting");
+                }
+            });
         });
+
     </script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
