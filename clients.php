@@ -1,9 +1,9 @@
 <?php ob_start(); ?>
 <!-- TODO LIST: Updated - 29th September 6pm
 
-    - Implement POST's for add, update and delete
+    - Implement POST's for add and delete
     - Create Proper confirm modal
-    - Implement Dropdown State selection
+    - Implement Dropdown State selection from db
     - Implement input checking
 
 -->

@@ -27,7 +27,7 @@
                 echo "Updated Completed";
             }
             else{
-                echo "Shit's fucked";
+                echo "Error";
             }
             break;
 
