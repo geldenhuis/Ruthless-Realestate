@@ -455,6 +455,7 @@
 
             // Details Vars - This is a retarded way to do this
             var $fname = $("#edit-fname").val();
+            alert($fname);
             var $lname = $("#edit-lname").val();
             var $phone = $("#edit-phone").val();
             var $mobile = $("#edit-mobile").val();
@@ -462,6 +463,7 @@
             var $address = $("#edit-street").val();
             var $suburb = $("#edit-suburb").val();
             var $state = $( "#edit-state option:selected" ).text();
+            alert($state);
             var $postcode = $("#edit-pcode").val();
 
             if ($('#edit-mlist').is(':checked')){
@@ -471,7 +473,7 @@
                 var $mailinglist = "n";
             }
 
-            $.post ("manageclient.php", { action: "update",
+            $.post ("./manageclients.php", { action: "update",
                                          id: $id,
                                          fname: $fname,
                                          lname: $lname,
@@ -481,7 +483,14 @@
                                          address: $address,
                                          suburb: $suburb,
                                          state: $state,
-                                         postcode: $postcode})
+                                         postcode: $postcode}, function(data) {
+                if(data =="Updated Completed"){
+                    alert("Updated");
+                }
+                else{
+                    alert("Failure");
+                }
+            })
             btn.button('reset');
         });
 

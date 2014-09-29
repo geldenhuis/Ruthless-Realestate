@@ -19,10 +19,16 @@
             break;
 
         case "update":
-			$query="UPDATE customer set client_familyname='" .$_REQUEST['lname']. "', client_givenname='" .$_REQUEST['fname']. "', client_street='" .$_REQUEST['address']. "', client_suburb='" .$_REQUEST['suburb']. "', client_state='" .$_REQUEST['state']. "', client_pc='" .$_REQUEST['postcode']. "', client_email='" .$_REQUEST['email']. "', client_phone='" .$_REQUEST['phone']. "', client_mobile='" .$_REQUEST['mobile']. "' WHERE cust_no = '$id'";
-			$stmt = oci_parse($conn,$query);
-			oci_execute($stmt);
-            echo "Updated Completed";
+			$query="UPDATE client SET client_familyname='" .$_REQUEST['lname']. "', client_givenname='" .$_REQUEST['fname']. "', client_street='" .$_REQUEST['address']. "', client_suburb='" .$_REQUEST['suburb']. "', client_state='" .$_REQUEST['state']. "', client_pc='" .$_REQUEST['postcode']. "', client_email='" .$_REQUEST['email']. "', client_phone='" .$_REQUEST['phone']. "', client_mobile='" .$_REQUEST['mobile']. "' WHERE client_id = '" .$id. "'";
+
+            $stmt = oci_parse($conn,$query);
+
+            if (oci_execute($stmt)){
+                echo "Updated Completed";
+            }
+            else{
+                echo "Shit's fucked";
+            }
             break;
 
         case "retrieve":
