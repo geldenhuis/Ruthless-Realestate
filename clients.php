@@ -306,10 +306,70 @@
                             <h3>Create Client</h3>
                         </div>
 
-                        <div class="modal-body">
-                            <form>
-                                <label>Add Customer Details</label>
-                            </form>
+                        <div class="modal-body row">
+                            <div class="col-md-6" style="padding-left: 20px;">
+                                <form class="new-client">
+
+                                    <label for="name">First Name</label>
+                                    <br>
+                                    <input type="text" id="add-fname" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Family Name</label>
+                                    <br>
+                                    <input type="text" id="add-lname" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Phone Number</label>
+                                    <br>
+                                    <input type="text" id="add-phone" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Mobile Number</label>
+                                    <br>
+                                    <input type="text" id="add-mobile" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Email</label>
+                                    <br>
+                                    <input type="text" id="add-email" class="input-xlarge">
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" id="add-mlist" />
+                                    <label for="add-mlist">Subscribe to Mailing List?</label>
+                            </div>
+                            <div class="col-md-6">
+                                    <label for="name">State</label>
+                                    <br>
+                                    <select>
+                                      <option value="volvo">VIC</option>
+                                      <option value="saab">NSW</option>
+                                      <option value="mercedes">QLD</option>
+                                      <option value="audi">NT</option>
+                                      <option value="audi">TAS</option>
+                                      <option value="audi">WA</option>
+                                      <option value="audi">ACT</option>
+                                      <option value="audi">SA</option>
+                                    </select>
+                                    <br>
+
+                                    <label for="name">Suburb</label>
+                                    <br>
+                                    <input type="text" id="add-suburb" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Post Code</label>
+                                    <br>
+                                    <input type="text" id="add-pcode" class="input-xlarge">
+                                    <br>
+
+                                    <label for="name">Street Address</label>
+                                    <br>
+                                    <input type="text" id="add-street" class="input-xlarge">
+                                    <br>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
