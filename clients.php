@@ -259,7 +259,7 @@
                             <div class="col-md-6">
                                     <label for="name">State</label>
                                     <br>
-                                    <select>
+                                    <select id="edit-state">
                                       <option value="volvo">VIC</option>
                                       <option value="saab">NSW</option>
                                       <option value="mercedes">QLD</option>
@@ -449,16 +449,39 @@
         });
 
         $('#update').click(function(){
-            var btn = $(this)
-
-            $.post ("manageclient.php", { action: ""})
+            var btn = $(this);
+            var $id = $("client-id").text();
             btn.button('loading');
+
+            // Details Vars - This is a retarded way to do this
+            var $fname = $("#edit-fname").val();
+            var $lname = $("#edit-lname").val();
+            var $phone = $("#edit-phone").val();
+            var $mobile = $("#edit-mobile").val();
+            var $email = $("#edit-email").val();
+            var $address = $("#edit-street").val();
+            var $suburb = $("#edit-suburb").val();
+            var $state = $( "#edit-state option:selected" ).text();
+            var $postcode = $("#edit-pcode").val();
+
             if ($('#edit-mlist').is(':checked')){
-                alert("Checked");
+                var $mailinglist = "y";
             }
             else{
-                alert("Not Checked");
+                var $mailinglist = "n";
             }
+
+            $.post ("manageclient.php", { action: "update",
+                                         id: $id,
+                                         fname: $fname,
+                                         lname: $lname,
+                                         phone: $phone,
+                                         mobile: $mobile,
+                                         email: $email,
+                                         address: $address,
+                                         suburb: $suburb,
+                                         state: $state,
+                                         postcode: $postcode})
             btn.button('reset');
         });
 
