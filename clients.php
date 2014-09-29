@@ -1,9 +1,8 @@
 <?php ob_start(); ?>
 <!-- TODO LIST: Updated - 29th September 6pm
 
-    - Finish Add Client Modal + Code
+    - Implement POST's for add, update and delete
     - Create Proper confirm modal
-    - Finish Update code
     - Implement Dropdown State selection
     - Implement input checking
 

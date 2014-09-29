@@ -11,6 +11,7 @@
             echo "Adding";
             break;
         case "delete":
+            $query =
             echo "Deleted";
             break;
     }
