@@ -9,21 +9,21 @@
 
     switch ( $action ) {
         case "add":
-            $query = "INSERT INTO property_type VALUES (PROPTYPE_SEQ.NEXTVAL, '" .$_REQUEST['typename']. "')";
+            $query = "INSERT INTO feature VALUES (feature_SEQ.NEXTVAL, '" .$_REQUEST['typename']. "')";
             $stmt = oci_parse($conn,$query);
 			oci_execute($stmt);
             echo "Added Record";
             break;
 
         case "delete":
-            $query = "DELETE FROM property_type WHERE type_id = " . $id;
+            $query = "DELETE FROM feature WHERE feature_id = " . $id;
             $stmt = oci_parse($conn,$query);
 			oci_execute($stmt);
             echo "Deleted";
             break;
 
         case "update":
-            $query = "UPDATE property_type SET type_name='" .$_REQUEST['typename']. "' WHERE type_id = " .$id;
+            $query = "UPDATE feature SET feature_name='" .$_REQUEST['typename']. "' WHERE feature_id = " .$id;
             $stmt = oci_parse($conn,$query);
 			oci_execute($stmt);
             echo ("Updated");

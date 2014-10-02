@@ -118,7 +118,6 @@
             uname: $username,
             pword: $password
         }, function (data) {
-            alert(data);
             if (data == "Valid User") {
                 window.location = ('./index.php');
             } else {

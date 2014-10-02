@@ -1,11 +1,7 @@
-<?php
-    ob_start();
-    session_start();
-    if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
-?>
+<?php ob_start(); session_start(); if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); } ?>
+
 <!-- TODO LIST: Updated - 29th September 6pm
 
-    - Implement POST's for add and delete
     - Create Proper confirm modal
     - Implement Dropdown State selection from db
     - Implement input checking
@@ -89,7 +85,7 @@
                         </a>
                     </li>
 
-                                     <!-- Logout Modal -->
+                    <!-- Logout Modal -->
                     <div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
@@ -121,7 +117,7 @@
 
             <div class="col-xs-12 pad">
                 <h2 class="pad">Client Database
-                    <button id="addcust" class='pad btn btn-default' style="float: right;" data-toggle='modal' data-target='.add-modal'>
+                    <button class='pad btn btn-default' style="float: right;" data-toggle='modal' data-target='.add-modal'>
                         <i class="fa fa-plus"></i> Add Client
                     </button>
                 </h2>
@@ -140,14 +136,14 @@
                         <!--- Temp Kludge hack to enable fixed header -->
                         <table class="table table-striped">
 
-                                <col style="width:5%" />
-                                <col style="width:10%" />
-                                <col style="width:15%" />
-                                <col style="width:10%" />
-                                <col style="width:5%" />
-                                <col style="width:10%" />
-                                <col style="width:5%" />
-                                <col style="width:5%" />
+                            <col style="width:5%" />
+                            <col style="width:10%" />
+                            <col style="width:15%" />
+                            <col style="width:10%" />
+                            <col style="width:5%" />
+                            <col style="width:10%" />
+                            <col style="width:5%" />
+                            <col style="width:5%" />
 
                             <thead>
                                 <tr style="text-align: center;">
@@ -165,7 +161,6 @@
 
                         <div style="height: 350px; overflow-y: scroll;">
                             <table class="table table-striped">
-
                                 <!-- Try to connect to DB and -->
                                 <?php include( "remoteconnection.php" );
                                     $conn=oci_connect($UName,$PWord,$DB);
@@ -179,10 +174,11 @@
 
                                             // Had to get creative with the trim and rtrim functions as php was adding lots of whitespace
                                             // and breaking the JQuery instant filter
+                                            // Data in table has the names around the wrong way
                                             echo "<tr>";
                                             echo "<td class='id'>" . trim($row[0]) . "</td>";
-                                            echo "<td class='name'>" . rtrim($row[1]);
-                                            echo " " . rtrim($row[2]) . "</td>";
+                                            echo "<td class='name'>" . rtrim($row[2]);
+                                            echo " " . rtrim($row[1]) . "</td>";
                                             echo "<td class='address'>$row[3]</td>";
                                             echo "<td class='suburb'>$row[4]</td>";
                                             echo "<td class='state'>$row[5]</td>";
@@ -203,18 +199,22 @@
                                             echo "</tr>";
                                         }
                                     ?>
-                                </tbody>
 
+                                </tbody>
                             </table>
                         </div>
                         <hr>
 
                         <?php oci_free_statement($stmt); oci_close($conn); ?>
 
-                            <button id="downPDF" data-loading-text='<i class="fa fa-spinner fa-spin"></i> Generating PDF' class="btn btn-primary" type="submit">
-                                <i class="fa fa-download"></i>
-                                Download as PDF
-                            </button>
+                        <button id="downPDF" data-loading-text='<i class="fa fa-spinner fa-spin"></i> Generating PDF' class="btn btn-primary" type="submit">
+                            <i class="fa fa-download"></i>
+                            Download as PDF
+                        </button>
+                        <button id="mailinglist" class="btn btn-primary" data-toggle='modal' data-target='.mail-modal'>
+                            <i class="fa fa-envelope"></i>
+                            Mailing List
+                        </button>
                     </div>
                 </div>
             </div>
@@ -261,34 +261,34 @@
                                     <label for="edit-mlist">Subscribed to Mailing List</label>
                             </div>
                             <div class="col-md-6">
-                                    <label for="name">State</label>
-                                    <br>
-                                    <select id="edit-state">
-                                      <option value="volvo">VIC</option>
-                                      <option value="saab">NSW</option>
-                                      <option value="mercedes">QLD</option>
-                                      <option value="audi">NT</option>
-                                      <option value="audi">TAS</option>
-                                      <option value="audi">WA</option>
-                                      <option value="audi">ACT</option>
-                                      <option value="audi">SA</option>
-                                    </select>
-                                    <br>
+                                <label for="name">State</label>
+                                <br>
+                                <select id="edit-state">
+                                    <option value="volvo">VIC</option>
+                                    <option value="saab">NSW</option>
+                                    <option value="mercedes">QLD</option>
+                                    <option value="audi">NT</option>
+                                    <option value="audi">TAS</option>
+                                    <option value="audi">WA</option>
+                                    <option value="audi">ACT</option>
+                                    <option value="audi">SA</option>
+                                </select>
+                                <br>
 
-                                    <label for="name">Suburb</label>
-                                    <br>
-                                    <input type="text" id="edit-suburb" class="input-xlarge">
-                                    <br>
+                                <label for="name">Suburb</label>
+                                <br>
+                                <input type="text" id="edit-suburb" class="input-xlarge">
+                                <br>
 
-                                    <label for="name">Post Code</label>
-                                    <br>
-                                    <input type="text" id="edit-pcode" class="input-xlarge">
-                                    <br>
+                                <label for="name">Post Code</label>
+                                <br>
+                                <input type="text" id="edit-pcode" class="input-xlarge">
+                                <br>
 
-                                    <label for="name">Street Address</label>
-                                    <br>
-                                    <input type="text" id="edit-street" class="input-xlarge">
-                                    <br>
+                                <label for="name">Street Address</label>
+                                <br>
+                                <input type="text" id="edit-street" class="input-xlarge">
+                                <br>
                                 </form>
                             </div>
                         </div>
@@ -311,105 +311,156 @@
 
                         <div class="modal-body row">
                             <div class="col-md-6" style="padding-left: 20px;">
-                                <form class="new-client">
-
-                                    <label for="name">First Name</label>
+                                <form id="new-client">
+                                    <label for="fname">First Name</label>
                                     <br>
-                                    <input type="text" id="add-fname" class="input-xlarge">
-                                    <br>
-
-                                    <label for="name">Family Name</label>
-                                    <br>
-                                    <input type="text" id="add-lname" class="input-xlarge">
+                                    <input type="text" name="fname" class="input-xlarge" required>
                                     <br>
 
-                                    <label for="name">Phone Number</label>
+                                    <label for="lname">Family Name</label>
                                     <br>
-                                    <input type="text" id="add-phone" class="input-xlarge">
-                                    <br>
-
-                                    <label for="name">Mobile Number</label>
-                                    <br>
-                                    <input type="text" id="add-mobile" class="input-xlarge">
+                                    <input type="text" name='lname' class="input-xlarge" required>
                                     <br>
 
-                                    <label for="name">Email</label>
+                                    <label for="phone">Phone Number</label>
                                     <br>
-                                    <input type="text" id="add-email" class="input-xlarge">
+                                    <input type="text" name="phone" class="input-xlarge" required>
                                     <br>
+
+                                    <label for="mobile">Mobile Number</label>
                                     <br>
-                                    <input type="checkbox" id="add-mlist" />
+                                    <input type="text" name="mobile" class="input-xlarge" required>
+                                    <br>
+
+                                    <label for="email">Email</label>
+                                    <br>
+                                    <input type="email" name="email" class="input-xlarge" required>
+                                    <br>
+                                    <input type="checkbox" name="mlist" id="mlist" value="y" required>
                                     <label for="add-mlist">Subscribe to Mailing List?</label>
                             </div>
                             <div class="col-md-6">
-                                    <label for="name">State</label>
-                                    <br>
-                                    <select>
-                                      <option value="volvo">VIC</option>
-                                      <option value="saab">NSW</option>
-                                      <option value="mercedes">QLD</option>
-                                      <option value="audi">NT</option>
-                                      <option value="audi">TAS</option>
-                                      <option value="audi">WA</option>
-                                      <option value="audi">ACT</option>
-                                      <option value="audi">SA</option>
-                                    </select>
-                                    <br>
+                                <label for="state">State</label>
+                                <br>
+                                <select name="state" id='state'>
+                                    <option value="VIC">VIC</option>
+                                    <option value="NSW">NSW</option>
+                                    <option value="QLD">QLD</option>
+                                    <option value="NT">NT</option>
+                                    <option value="TAS">TAS</option>
+                                    <option value="WA">WA</option>
+                                    <option value="ACT">ACT</option>
+                                    <option value="SA">SA</option>
+                                </select>
+                                <br>
 
-                                    <label for="name">Suburb</label>
-                                    <br>
-                                    <input type="text" id="add-suburb" class="input-xlarge">
-                                    <br>
+                                <label for="suburb">Suburb</label>
+                                <br>
+                                <input type="text" name="suburb" id="suburb" class="input-xlarge">
+                                <br>
 
-                                    <label for="name">Post Code</label>
-                                    <br>
-                                    <input type="text" id="add-pcode" class="input-xlarge">
-                                    <br>
+                                <label for="postcode">Post Code</label>
+                                <br>
+                                <input type="text" name="postcode" id="postcode" class="input-xlarge">
+                                <br>
 
-                                    <label for="name">Street Address</label>
-                                    <br>
-                                    <input type="text" id="add-street" class="input-xlarge">
-                                    <br>
+                                <label for="street">Street Address</label>
+                                <br>
+                                <input type="text" name="street" id="street" class="input-xlarge">
+                                <br>
                                 </form>
                             </div>
-
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="addcust">Create Record</button>
+                            <a href="#" class="btn" data-dismiss="modal">Done</a>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Mailing List Modal -->
+            <div id="mailinglistModal" class="modal mail-modal" tabindex="-1" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal"><i class="fa fa-close"></i></a>
+                            <h3>Contact Mailing-List</h3>
+                            <p>This form will send your message to all clients that have opted into the mailinglist</p>
+                            <p>Note: Emails may not appear immediately as this process runs in the background due to the large amout of traffic generated</p>
+                        </div>
 
+                        <div class="modal-body row">
+                            <div style="padding-left: 20px;">
+                                <form id="new-email" >
+                                    <label for="msubject">Subject:</label>
+                                    <br>
+                                    <input style="width: 90%;" type="text" name="msubject" class="input-xlarge" required>
+                                    <br>
+                                    <label for="mbody">Message:</label>
+                                    <br>
+                                    <textarea style="width: 90%;" name="mbody" id="mbody"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="sendmail" data-loading-text='<i class="fa fa-spinner fa-spin"></i> Sending'>
+                                <i class="fa fa-paper-plane-o"></i> Send Email</button>
+                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </aside>
 
-        <a href="showsource.php?page=clients.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
+        <a href="showsource.php?page=clients.php" target="_blank">
+            <img src="assets/images/codebuttonclient.jpg">
+        </a>
 
     </div>
 
     <script>
-        //Filter the table by hiding non-matching rows on keyup
         $(function ($) {
-                $('#filter').keyup(function () {
-                    var rex = new RegExp($(this).val(), 'i');
-                    $('.searchable tr').hide();
-                    $('.searchable tr').filter(function () {
-                        return rex.test($(this).text());
-                    }).show();
-                })
+            $('#filter').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.searchable tr').hide();
+                $('.searchable tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            })
         }(jQuery));
 
-        //When Edit button is clicked find the client ID
         $(function(){
-            $(".edit").click(function() {
+           $('#sendmail').click(function(){
+               if(window.confirm("Are you ready to send this email?")){
+                   var btn = $(this);
+                   btn.button('loading');
+               }
+           });
+        });
+
+        $(function () {
+            //This is the non retarded way to do this
+            $('#addcust').click(function () {
+                var data = $('#new-client').serializeArray();
+                data.push({name: 'action', value: 'add'});
+                $.post("manageclients.php", data, function (res) {
+                    $("#new-client").trigger("reset");
+                });
+            });
+        });
+
+        $(function () {
+            $(".edit").click(function () {
                 // NOTE: Add a loading and spinner to the title to eliminate errs caused by latency.
-
-                // Clear all input fields otherwise there can be errors when we edit multiple entries.
-                // where it shows the previous data before updating to the current record.
                 $('.client-info').trigger("reset");
-
                 var $row = $(this).closest("tr");
                 var $id = $row.find(".id").text();
 
-                $.post('./manageclients.php', { action: "retrieve", id: $id }, function(data) {
+                $.post('./manageclients.php', {
+                    action: "retrieve",
+                    id: $id
+                }, function (data) {
 
                     //Window Dressing
                     $('#client-id').text($id);
@@ -429,7 +480,7 @@
                     // Because we use a single char to check if the client is on the mailing list
                     // we need to convert that to a boolean value to set the checkbox
                     // (alternatively we could just use a listbox an negate this requirement).
-                    if (data.mlChkVal == "y"){
+                    if (data.mlChkVal == "y") {
                         $('#edit-mlist').prop('checked', true);
                     } else {
                         $('#edit-mlist').prop('checked', false);
@@ -439,25 +490,25 @@
         });
 
         //On click set the button to 'loading', generate the PDF and change page to view it
-        $('#downPDF').click(function(){
+        $('#downPDF').click(function () {
             var btn = $(this)
-            // Swap the button state to 'loading'
-            // because PDF generation can take a while and we need valid feedback
+                // Swap the button state to 'loading'
+                // because PDF generation can take a while and we need valid feedback
             btn.button('loading');
-            $.get( "generate-pdf.php", function( data ) {
+            $.get("generate-pdf.php", function (data) {
                 // Reset the button state
                 btn.button('reset')
                 // Change to the PDF location
-                window.location = ( data )
+                window.location = (data)
             });
         });
 
-        $('#update').click(function(){
+        $(function(){
+        $('#update').click(function () {
             var btn = $(this);
-            var $id = $("client-id").text();
+            var $id = $("#client-id").text();
             btn.button('loading');
 
-            // Details Vars - This is a retarded way to do this
             var $fname = $("#edit-fname").val();
             var $lname = $("#edit-lname").val();
             var $phone = $("#edit-phone").val();
@@ -465,66 +516,63 @@
             var $email = $("#edit-email").val();
             var $address = $("#edit-street").val();
             var $suburb = $("#edit-suburb").val();
-            var $state = $( "#edit-state option:selected" ).text();
+            var $state = $("#edit-state option:selected").text();
             var $postcode = $("#edit-pcode").val();
 
-            if ($('#edit-mlist').is(':checked')){
+            if ($('#edit-mlist').is(':checked')) {
                 var $mailinglist = "y";
-            }
-            else{
+            } else {
                 var $mailinglist = "n";
             }
 
-            $.post ("./manageclients.php", { action: "update",
-                                         id: $id,
-                                         fname: $fname,
-                                         lname: $lname,
-                                         phone: $phone,
-                                         mobile: $mobile,
-                                         email: $email,
-                                         address: $address,
-                                         suburb: $suburb,
-                                         state: $state,
-                                         postcode: $postcode}, function(data) {
-                if(data =="Updated Completed"){
-                    alert("Updated");
-                }
-                else{
-                    alert("Failure");
+            $.post("./manageclients.php", {
+                action: "update",
+                id: $id,
+                fname: $fname,
+                lname: $lname,
+                phone: $phone,
+                mobile: $mobile,
+                email: $email,
+                address: $address,
+                suburb: $suburb,
+                state: $state,
+                postcode: $postcode,
+                mailinglist: $mailinglist
+            }, function (data) {
+                if (data == "Updated Completed") {
+                    alert(data);
+                } else {
+                    alert(data);
                 }
             })
             btn.button('reset');
         });
+            });
 
 
-        $(function(){
-            $(".delete").click(function() {
+        $(function () {
+            $(".delete").click(function () {
                 var $row = $(this).closest("tr");
                 var $id = $row.find(".id").text();
-                //I am lazy and didn't want to create a proper dialog box for testing
-                // Implement later
-                if (window.confirm("Delete Record?")){
-                $.post( "manageclient.php", { action: "delete", id: $id })
-                .done(function(data){
-                    if (data == "Deleted") {
-                        $row.hide();
-                        alert("Record Deleted");
-                    }
-                    else {
-                        alert("An error occurred, item was not deleted");
-                    }
-                });
-                }
-                else{
+                if (window.confirm("Delete Record?")) {
+                    $.post("manageclients.php", { action: "delete", id: $id}, function (data) {
+                            if (data == "Deleted") {
+                                $row.hide();
+                                alert("Record Deleted");
+                            } else {
+                                alert("An error occurred, item was not deleted please refresh and try again");
+                            }
+                        })
+                } else {
                     alert("Not deleting");
                 }
             });
         });
-
     </script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>
 </body>
+
 </html>
 
 

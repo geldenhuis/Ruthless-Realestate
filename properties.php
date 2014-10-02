@@ -105,12 +105,12 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-users"></i> Home</a>
                     </li>
-                    <li>Property Type Database</li>
+                    <li>Property Database</li>
                 </ol>
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Property Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Property Type</button></h2>
+                <h2 class="pad">Property Database<a href="createproperty.php"><button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> New Property</button></a></h2>
 
                     <div class="pad box box-solid flat">
                     <div class="box-body">
@@ -124,7 +124,7 @@
                                 <?php include( "remoteconnection.php" );
                                     $conn=oci_connect($UName,$PWord,$DB);
                                     //loop through all id's
-                                    $query="SELECT * FROM property_type" ;
+                                    $query="SELECT * FROM property" ;
                                     $stmt=oci_parse($conn, $query);
                                     oci_execute($stmt);
                                 ?>
@@ -135,9 +135,13 @@
                                             echo "<tr>";
                                             echo "<td class='id'>$row[0]</td>";
                                             echo "<td class='name'>$row[1]</td>";
+                                            echo "<td class='name'>$row[2]</td>";
+                                            echo "<td class='name'>$row[3]</td>";
+                                            echo "<td class='name'>$row[4]</td>";
+                                            echo "<td class='name'>$row[5]</td>";
 
                                             echo "<td><div class='btn-group'><button class='btn btn-info deltype'>Delete</button>";
-                                            echo "<button class='btn btn-warning edit'>Edit</button></div></td>";
+                                            echo "<a href='editproperty.php?id=".$row[0]."'><button class='btn btn-warning edit'>Edit</button></a></div></td>";
                                             echo "</tr>";
                                         }
                                     ?>
@@ -156,19 +160,6 @@
     </div>
 
     <script>
-        //Going to be super lazy and refresh the page as opposed to re-drawing the table or making the table dynamic
-        $(function(){
-            $("#addType").click(function() {
-                var type_name = prompt("Please enter a property type:");
-                if (type_name){
-                    $.post( "managetype.php", { action: "add", typename: type_name}, function( res ) {
-                        alert( res );
-                        window.location.reload(true);
-                    });
-                }
-            });
-        });
-
         $(function(){
             $(".deltype").click(function() {
                 var $row = $(this).closest("tr");
@@ -176,7 +167,7 @@
                 var $confirm = window.confirm("Are you sure you wish to delete this item?");
                 if ($confirm){
                     $row.hide();
-                    $.post( "managetype.php", { action: "delete", id: $id })
+                    $.post( "manageproperties.php", { action: "delete", id: $id })
                     .done(function(data){
                         if (data == "Deleted") {
                             alert("Item Deleted");
@@ -184,26 +175,10 @@
                         else {
                             alert("An error occurred, item was not deleted");
                             $row.show();
-
                         }
                     });
                 }
             });
-            });
-
-        $(function(){
-           $(".edit").click(function(){
-               var currCell = $(this).closest("tr").find('.name');
-               var currVal = currCell.text();
-               var id = $(this).closest("tr").find('.id').text();
-               var type_name = prompt("Change the value and save:", currVal);
-
-               if (type_name != currVal && type_name){
-                   $.post("managetype.php", {action: 'update', id: id, typename: type_name}, function(res){
-                        currCell.text(type_name);
-                   });
-               }
-           });
         });
     </script>
 
