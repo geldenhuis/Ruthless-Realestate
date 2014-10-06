@@ -1,15 +1,18 @@
 <?php
     ob_start();
     session_start();
+    include( "remoteconnection.php" );
+    $conn=oci_connect($UName,$PWord,$DB);
+
     //Not needed for index as per specification
-    //if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
+    if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Standard meta kludge -->
+    <!-- Standard Meta-Kludge -->
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -33,6 +36,54 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <?php
+        /* Having so many trips to the DB seems too inefficient.
+           rewrite this code later with more efficient queries and structure
+           maybe bring the property data across in a session array
+           - Luke
+        */
+
+        // Main Details
+        //select p.property_street, p.property_suburb, p.property_state, p.property_pc from property p where property_id = 21;
+        $query = "SELECT p.property_street, p.property_suburb, p.property_state, p.property_pc, p.property_type FROM property p where property_id='" .$_REQUEST['id']."'";
+        $stmt = oci_parse($conn, $query);
+        oci_execute($stmt);
+
+        // Specify OCI_ASSOC because default behaviour returns a multidimensional associative and numerative array
+        $res = oci_fetch_array ($stmt, OCI_ASSOC);
+        foreach ($res as $name => $value) {
+            if ($name != "PROPERTY_TYPE"){
+                $details[] = "<label>" . substr($name, 9) . "</label><br>";
+                $details[] = "<input class='form-control' type='text' name='{$name}' value='{$value}'>";
+            }
+        }
+        $details = join('',$details);
+
+        // Property Type dropdown
+        $query = "SELECT * FROM property_type";
+        $stmt = oci_parse($conn, $query);
+        oci_execute($stmt);
+        $currType = $res['PROPERTY_TYPE'];
+        $dropDown[] = "<select name='ptype' class='form-control'>";
+        while ($row = oci_fetch_array ($stmt)){
+            if ($row[0] == $currType){
+                $dropDown[] = "<option value='" .$row[0]. "' selected>" .$row[1]. "</option>";
+            }
+            else{
+                $dropDown[] = "<option value='" .$row[0]. "'>" . $row[1] . "</option>";
+            }
+        }
+        $dropDown[] = "</select><br>";
+        $dropDown = join('',$dropDown);
+
+
+        // Get current images
+        //$imagelocation =
+    ?>
+
+
+
 </head>
 
 
@@ -110,15 +161,98 @@
             </section>
 
             <section>
-                <div id='main-content'>
+                <div id='main-content' class="col-md-12 pad">
+                    <div class="box box-solid flat col-md-12">
+                    <div class="box-body">
+                    <form id="property-details">
+                        <fieldset class="col-md-4">
+                            <legend>Property Details</legend>
+                            <label>Property Type</label><br>
+                            <?php
+                                echo $dropDown;
+                                echo $details;
+                            ?>
+                            <br>
+                            <button class="btn btn-primary">Update</button>
+                        </fieldset>
 
+                        <fieldset class="col-md-8">
+                            <legend>Property Image</legend>
+                            <?php
+                                $query ="select * from property_image where property_id=" . $_REQUEST['id'];
+                                $stmt = ociparse($conn, $query);
+                                oci_execute($stmt);
+                                oci_fetch($stmt);
+                                $imgName = trim(oci_result($stmt, "IMAGE_NAME"));
+
+                                echo '<div id="gallery" class="col-md-3" align="center">
+                                    <img src="./assets/images/' . $imgName . '" class="img-thumbnail">
+                                </div>' ;
+                            ?>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                    Image Options
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Choose from Server</a></li>
+                                  <li><a href="#">Upload new Image</a></li>
+                                </ul>
+                            </div>
+
+                            <h4>Image Details</h4>
+                            <?php
+                                echo "<p>Filename: - ". $imgName . "</p>";
+                                echo "<p>Image Size - </p>";
+                            ?>
+                            <legend>Property Features</legend>
+                            <button type="button" data-dismiss="modal" style="float:right;" class="btn btn-info .btn-sm"><i class="fa fa-plus"></i> Add Feature</button>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <td><i class="fa fa-check"></i></td>
+                                        <td>Feature Type</td>
+                                        <td>Description</td>
+                                        <td>Quantity</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                  $query = "SELECT f.feature_id, f.feature_name, pf.feature_desc, pf.quantity FROM property_feature pf, feature f WHERE pf.property_id = '" . $_REQUEST['id'] ."' AND f.feature_id = pf.feature_id";
+                                  $stmt = oci_parse($conn, $query);
+                                  oci_execute($stmt);
+
+                                  while ($row = oci_fetch_array ($stmt))
+                                  {
+                                ?>
+
+                                    <tr>
+                                        <td><?php echo $row['FEATURE_ID']; ?></td>
+                                        <td><?php echo $row['FEATURE_NAME'] ?></td>
+                                        <td><?php echo $row['FEATURE_DESC'] ?></td>
+                                        <td><input type="text" name="qty[]" value="<?php echo $row['QUANTITY']; ?>"></td>
+                                        <td>
+                                        <div class="btn-group" style="float:right;">
+                                            <button class="btn btn-default">Edit</button>
+                                            <button class="btn btn-danger">Remove</button></td>
+                                        </div>
+                                        <br>
+                                    </tr>
+
+                                <?php
+                                  }
+                                ?>
+                                    </tbody>
+                            </table>
+
+                        </fieldset>
+                    </form>
+                        </div>
+                    </div>
                 </div>
             </section>
-
         </aside>
-
-        <script>
-        </script>
 
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/retina.min.js"></script>
