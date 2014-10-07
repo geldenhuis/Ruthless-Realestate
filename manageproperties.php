@@ -16,5 +16,10 @@
 			oci_execute($stmt);
             echo "Deleted";
             break;
+        case "update";
+            $query = "UPDATE property SET";
+            $stmt = oci_parse($conn,$query);
+            oci_execute($stmt);
+            echo print_r($_POST);
     }
 ?>

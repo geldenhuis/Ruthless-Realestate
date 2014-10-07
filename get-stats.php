@@ -15,6 +15,7 @@
 
     // Execute multiple count statements at once using the DUAL dummy table.
     // Done for interface performance reasons
+    // Multiple Queries increase latency in rendering the interface
     // http://docs.oracle.com/database/121/SQLRF/queries009.htm#SQLRF20036
     $query = "SELECT (SELECT COUNT(*) FROM customer) AS totalCustomers, (SELECT COUNT(*) FROM authenticate) AS totAccounts FROM dual";
 

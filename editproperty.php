@@ -1,12 +1,18 @@
 <?php
     ob_start();
     session_start();
+
+    //Not needed for index as per specification
+    if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); }
     include( "remoteconnection.php" );
     $conn=oci_connect($UName,$PWord,$DB);
 
-    //Not needed for index as per specification
-    if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
+    if (!$conn) {
+        $e = oci_error();
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +38,7 @@
     <link href="./assets/css/style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -45,12 +52,11 @@
         */
 
         // Main Details
-        //select p.property_street, p.property_suburb, p.property_state, p.property_pc from property p where property_id = 21;
-        $query = "SELECT p.property_street, p.property_suburb, p.property_state, p.property_pc, p.property_type FROM property p where property_id='" .$_REQUEST['id']."'";
+        $query = "SELECT p.property_street, p.property_suburb, p.property_state, p.property_pc, p.property_type, p.property_price FROM property p where property_id='" .$_REQUEST['id']."'";
         $stmt = oci_parse($conn, $query);
         oci_execute($stmt);
 
-        // Specify OCI_ASSOC because default behaviour returns a multidimensional associative and numerative array
+        // Specify OCI_ASSOC because default behaviour returns 2 Arrays and this code will iterate through both
         $res = oci_fetch_array ($stmt, OCI_ASSOC);
         foreach ($res as $name => $value) {
             if ($name != "PROPERTY_TYPE"){
@@ -65,7 +71,7 @@
         $stmt = oci_parse($conn, $query);
         oci_execute($stmt);
         $currType = $res['PROPERTY_TYPE'];
-        $dropDown[] = "<select name='ptype' class='form-control'>";
+        $dropDown[] = "<select name='PROPERTY_TYPE' class='form-control'>";
         while ($row = oci_fetch_array ($stmt)){
             if ($row[0] == $currType){
                 $dropDown[] = "<option value='" .$row[0]. "' selected>" .$row[1]. "</option>";
@@ -77,15 +83,20 @@
         $dropDown[] = "</select><br>";
         $dropDown = join('',$dropDown);
 
-
-        // Get current images
-        //$imagelocation =
+        if (isset($_FILES["userfile"]["tmp_name"])){
+            $upfile = './uploads/'.$_FILES["userfile"]["name"];
+            if(!move_uploaded_file($_FILES["userfile"]["tmp_name"],$upfile))
+            {
+              echo "ERROR: Could Not Move File into Directory";
+            }
+            else{
+                $query="UPDATE property_image SET IMAGE_NAME='".$_FILES["userfile"]["name"]."' WHERE property_id='".$_REQUEST['id']."'";
+                $stmt= oci_parse($conn, $query);
+                oci_execute($stmt);
+            }
+        }
     ?>
-
-
-
 </head>
-
 
 <body style="font-family: HelveticaNeue-Light; font-weight: 300;">
     <header class="header">
@@ -163,98 +174,108 @@
             <section>
                 <div id='main-content' class="col-md-12 pad">
                     <div class="box box-solid flat col-md-12">
-                    <div class="box-body">
-                    <form id="property-details">
-                        <fieldset class="col-md-4">
-                            <legend>Property Details</legend>
-                            <label>Property Type</label><br>
-                            <?php
-                                echo $dropDown;
-                                echo $details;
-                            ?>
-                            <br>
-                            <button class="btn btn-primary">Update</button>
-                        </fieldset>
+                        <div class="box-body">
+                            <form id="property-details">
+                                <fieldset class="col-md-4">
+                                    <legend>Property Details <span id="propid"><?php echo $_REQUEST['id']?></span></legend>
+                                    <label>Property Type</label>
+                                    <br>
+                                    <?php echo $dropDown; echo $details; ?>
+                                    <br>
+                                    <a id='update' class="btn btn-primary">Update</a>
+                                </fieldset>
+                            </form>
 
-                        <fieldset class="col-md-8">
-                            <legend>Property Image</legend>
-                            <?php
-                                $query ="select * from property_image where property_id=" . $_REQUEST['id'];
-                                $stmt = ociparse($conn, $query);
-                                oci_execute($stmt);
-                                oci_fetch($stmt);
-                                $imgName = trim(oci_result($stmt, "IMAGE_NAME"));
+                            <form id="image-details" method="post" enctype="multipart/form-data" action="editproperty.php?id=<?php echo $_REQUEST['id'] ?>">
+                                <fieldset class="col-md-8">
+                                    <legend>Property Image</legend>
+                                    <?php
+                                        $query="select * from property_image where property_id=" . $_REQUEST[ 'id'];
+                                        $stmt=ociparse($conn, $query);
+                                        oci_execute($stmt);
+                                        oci_fetch($stmt);
+                                        if (!$_FILES["userfile"]){
+                                            $imgName=trim(oci_result($stmt, "IMAGE_NAME")) ? trim(oci_result($stmt, "IMAGE_NAME")) : "150x150.gif";
+                                        }
+                                        else{
+                                            $imgName=$_FILES['userfile']['name'];
+                                        }
+                                        echo '<div id="gallery" class="col-md-3" align="center"><img src="./uploads/' . $imgName . '" class="img-thumbnail"></div>';
+                                    ?>
 
-                                echo '<div id="gallery" class="col-md-3" align="center">
-                                    <img src="./assets/images/' . $imgName . '" class="img-thumbnail">
-                                </div>' ;
-                            ?>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                    Image Options
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="#">Choose from Server</a></li>
-                                  <li><a href="#">Upload new Image</a></li>
-                                </ul>
-                            </div>
-
-                            <h4>Image Details</h4>
-                            <?php
-                                echo "<p>Filename: - ". $imgName . "</p>";
-                                echo "<p>Image Size - </p>";
-                            ?>
-                            <legend>Property Features</legend>
-                            <button type="button" data-dismiss="modal" style="float:right;" class="btn btn-info .btn-sm"><i class="fa fa-plus"></i> Add Feature</button>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <td><i class="fa fa-check"></i></td>
-                                        <td>Feature Type</td>
-                                        <td>Description</td>
-                                        <td>Quantity</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                  $query = "SELECT f.feature_id, f.feature_name, pf.feature_desc, pf.quantity FROM property_feature pf, feature f WHERE pf.property_id = '" . $_REQUEST['id'] ."' AND f.feature_id = pf.feature_id";
-                                  $stmt = oci_parse($conn, $query);
-                                  oci_execute($stmt);
-
-                                  while ($row = oci_fetch_array ($stmt))
-                                  {
-                                ?>
-
-                                    <tr>
-                                        <td><?php echo $row['FEATURE_ID']; ?></td>
-                                        <td><?php echo $row['FEATURE_NAME'] ?></td>
-                                        <td><?php echo $row['FEATURE_DESC'] ?></td>
-                                        <td><input type="text" name="qty[]" value="<?php echo $row['QUANTITY']; ?>"></td>
-                                        <td>
-                                        <div class="btn-group" style="float:right;">
-                                            <button class="btn btn-default">Edit</button>
-                                            <button class="btn btn-danger">Remove</button></td>
-                                        </div>
-                                        <br>
-                                    </tr>
-
-                                <?php
-                                  }
-                                ?>
+                                    <div class="col-md-6">
+                                    <h4>Image Details</h4>
+                                    <?php
+                                      echo "File Name: " .$_FILES["userfile"]["name"]. "<br />";
+                                      echo "File Size: " .$_FILES["userfile"]["size"]. " bytes<br />";
+                                      echo "File Type: " .$_FILES["userfile"]["type"]. "<br />";
+                                    ?>
+                                    <br />
+                                    <input class="input-control" type="file" name="userfile" />
+                                    <button id="upload" type="submit" class="btn btn-danger btn-xs">Upload</button>
+                                    </div>
+                            </form>
+                            <form id="feature-details">
+                                <legend>Property Features</legend>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td><i class="fa fa-check"></i>
+                                            </td>
+                                            <td>Feature Type</td>
+                                            <td>Description</td>
+                                            <td>Quantity</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $query="SELECT f.feature_id, f.feature_name, pf.feature_desc, pf.quantity FROM property_feature pf, feature f WHERE pf.property_id = '" . $_REQUEST[ 'id'] . "' AND f.feature_id = pf.feature_id"; $stmt=oci_parse($conn, $query); oci_execute($stmt); while ($row=oci_fetch_array ($stmt)) { ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $row[ 'FEATURE_ID']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row[ 'FEATURE_NAME'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row[ 'FEATURE_DESC'] ?>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="qty[]" value="<?php echo $row['QUANTITY']; ?>">
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" style="float:right;">
+                                                    <button class="btn btn-default">Edit</button>
+                                                    <button class="btn btn-danger">Remove</button>
+                                            </td>
+                                            </div>
+                                            <br>
+                                        </tr>
+                                        <?php } ?>
                                     </tbody>
-                            </table>
-
-                        </fieldset>
-                    </form>
+                                </table>
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                 </div>
             </section>
         </aside>
 
+        <script>
+            $(function(){
+                $('#update').click(function(){
+                    var data = $('#property-details').serializeArray();
+                    data.push({name:'PROPERTY_ID', value: $('#propid').text()});
+                    data.push({name:'action', value: 'update'});
+                    $.post('manageproperties.php', data , function(res){
+                        alert(res);
+                    })
+                });
+            });
+        </script>
+
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/retina.min.js"></script>
 </body>
+
 </html>

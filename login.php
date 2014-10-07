@@ -1,8 +1,4 @@
-<?php
-    ob_start();
-    session_start();
-    if(isset($_SESSION['loggedin'])){ header("Location: ./index.php"); }
-?>
+<?php ob_start(); session_start(); if(isset($_SESSION[ 'loggedin'])){ header( "Location: ./index.php"); } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,17 +35,6 @@
             font-family: HelveticaNeue-Thin;
             background: #9b9b9b;
         }
-        .form-signin {
-            max-width: 280px;
-            margin: 25% auto 10px;
-        }
-        .form-control {
-            position: relative;
-            font-size: 16px;
-            height: auto;
-            padding: 10px;
-            @include box-sizing(border-box);
-        }
         input[type="text"] {
             margin-bottom: -1px;
             border-top: 1px solid transparent;
@@ -74,20 +59,11 @@
                 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0px 1px 0px 0px rgba(255, 255, 255, 0.5);
             }
         }
-        .btn {
-            border-radius: 3px;
-            border: none;
-        }
-
     </style>
 </head>
 
 
 <body>
-    <!-- <div class="navbar nav-header" style="background:#fff;">
-        <div class="header">
-        </div>
-    </div> -->
     <div class="container">
         <form class="form-signin">
             <h1 style="color: #fff">Welcome </h1>
@@ -107,7 +83,6 @@
 
 <script>
     $("#login-btn").click(function () {
-        //Hide the alert in-case it's visible.
         $("#AddAlert").hide();
 
         var $username = $("#uname").val();
