@@ -49,19 +49,24 @@
             <section class="sidebar bg">
                 <ul class="sidebar-menu">
 
-                    <li>
+                     <li class="active">
                         <a href="index.php">
-                            <i class="fa fa-bar-chart"></i>  <span>Home</span>
+                            <i class="fa fa-bar-chart"></i>  <span>Overview</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-key"></i>  <span>Property</span>
+                        <a href="./properties.php">
+                            <i class="fa fa-home"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-th"></i>  <span>Listings</span>
+                        <a href="type.php">
+                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="features.php">
+                            <i class="fa fa-th"></i>  <span>Property Features</span>
                         </a>
                     </li>
                     <li>
@@ -69,7 +74,7 @@
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="clients.php">
                             <i class="fa fa-users"></i>  <span>Clients</span>
                         </a>

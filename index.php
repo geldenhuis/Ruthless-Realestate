@@ -56,13 +56,18 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./properties.php">
                             <i class="fa fa-home"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-th"></i>  <span>Listings</span>
+                        <a href="type.php">
+                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="features.php">
+                            <i class="fa fa-th"></i>  <span>Property Features</span>
                         </a>
                     </li>
                     <li>
