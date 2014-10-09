@@ -1,4 +1,10 @@
-<?php ob_start(); session_start(); if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); } ?>
+<?php
+    ob_start();
+    session_start();
+    if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); }
+	include('./remoteconnection.php');
+	$conn=oci_connect($UName,$PWord,$DB);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,15 +35,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <?php
-        // Check is the Check[] array is set
-        if(isset($_POST['check'])){
-            //Loop through array and check if any of the images selected are used by a property
-            foreach($_POST['check'] as $images){
-                $query = "update property_images SET image_ where ";
-            }
-        }
-    ?>
+
 
 </head>
 
@@ -50,7 +48,27 @@
         <nav class="navbar navbar-static-top" role="navigation">
         </nav>
     </header>
+    <?php
+        // Check is the Check[] array is set
+        if(isset($_POST['check'])){
+            //Loop through array and check if any of the images selected are used by a property
+            //then update the property_image table where there are any matches
+            //a limitation of this approach is that an image can only be used by one property
+            //which is fine as it's doubtful that you would have two identical houses using the identical images
 
+            foreach($_POST['check'] as $image){
+                $query = "update property_image SET image_name='150x150.gif' where image_name='".$image."'";
+                $stmt = oci_parse($conn,$query);
+                //Suppress any errors due to non matching SQL as we don't care
+                @oci_execute($stmt);
+                //Set current DIR
+                $currdir = dirname($_SERVER["SCRIPT_FILENAME"]);
+                $currdir .="\\property_images\\";
+                //Now delete the image from server
+                unlink($currdir.$image);
+            }
+        }
+    ?>
 
     <div class="wrapper">
         <aside class="left-side">
@@ -144,10 +162,6 @@
                                             if($file == "." || $file ==".."){
                                                 continue;
                                             }
-
-                                            if(is_dir($file)){
-                                                echo "<b>".$file."</b><br />";
-                                            }
                                             else {
                                                 echo "<tr><td><img src='./property_images/".$file."' class='thumbnail' style='height:50px;width:50px;'/></td><td>";
                                                 echo "<td>".$file."</td>";
@@ -159,10 +173,10 @@
                                     ?>
                                     </tbody>
                                 </table>
-                            </div>
+                        </div>
+                        </div>
                     </div>
-                </div>
-                                                <button class="btn btn-danger" type="submit">Submit</button>
+                                <button class="btn btn-danger" type="submit">Submit</button>
                             </form>
             </div>
         </aside>
