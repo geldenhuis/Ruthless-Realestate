@@ -1,11 +1,12 @@
 TODO:
 
 #Index
-- Fix stats
+- Fix stats -
 
 #Properties
-- Add Search by Address
-- Add Search by Features
+- Add Search by Address - Done
+- Add Search by Suburb - Done
+- Add Message if no results
 
 #Edit Properties
 - Features checkbox
@@ -13,7 +14,7 @@ TODO:
 - Post data to (property_features)
 - Finish property update SQL
 - Add field checking (Javascript)
-- Change file uploads to 'property_images'
+- Change file uploads to 'property_images' (Done)
 - Add Sold Dates, and Mark as sold functions
 
 #Multi-Edit (Price)
@@ -21,7 +22,7 @@ TODO:
 
 #Client
 - Fix PDF on triton - Done
-- Implement Email -
+- Implement Email - Done (Single)
 
 #Manage Clients
 - Add DB error checks
@@ -33,7 +34,8 @@ TODO:
 - Do this
 
 #All 
-- Update Menu
+- Update Menu - Done
+
 - Add DB error checking
 - Update Font to OpenSans
 - Add Show source buttons
@@ -43,4 +45,4 @@ TODO:
 - Update all tables
 - Ensure sufficient data
 
-#Create Add Property
+#Create addproperty.php

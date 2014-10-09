@@ -56,7 +56,7 @@
         $stmt = oci_parse($conn, $query);
         oci_execute($stmt);
 
-        // Specify OCI_ASSOC because default behaviour returns 2 Arrays and this code will iterate through both
+        // Specify OCI_ASSOC because default behaviour returns 2 Arrays causing undesired behaviour
         $res = oci_fetch_array ($stmt, OCI_ASSOC);
         foreach ($res as $name => $value) {
             if ($name != "PROPERTY_TYPE"){
@@ -84,7 +84,7 @@
         $dropDown = join('',$dropDown);
 
         if (isset($_FILES["userfile"]["tmp_name"])){
-            $upfile = './uploads/'.$_FILES["userfile"]["name"];
+            $upfile = './property_images/'.$_FILES["userfile"]["name"];
             if(!move_uploaded_file($_FILES["userfile"]["tmp_name"],$upfile))
             {
               echo "ERROR: Could Not Move File into Directory";
@@ -112,19 +112,24 @@
             <section class="sidebar bg">
                 <ul class="sidebar-menu">
 
-                    <li class="active">
+                     <li>
                         <a href="index.php">
                             <i class="fa fa-bar-chart"></i>  <span>Overview</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li class="active">
+                        <a href="./properties.php">
                             <i class="fa fa-home"></i>  <span>Property</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-th"></i>  <span>Listings</span>
+                        <a href="type.php">
+                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="features.php">
+                            <i class="fa fa-th"></i>  <span>Property Features</span>
                         </a>
                     </li>
                     <li>
@@ -173,6 +178,11 @@
 
             <section>
                 <div id='main-content' class="col-md-12 pad">
+                    <h2 class="pad">
+                        <a href="./properties.php">
+                            <button class='btn btn-info pad'>Back to Property DB</button>
+                        </a>
+                    </h2>
                     <div class="box box-solid flat col-md-12">
                         <div class="box-body">
                             <form id="property-details">
@@ -194,21 +204,30 @@
                                         $stmt=ociparse($conn, $query);
                                         oci_execute($stmt);
                                         oci_fetch($stmt);
-                                        if (!$_FILES["userfile"]){
+                                        if (!isset($_FILES["userfile"])){
                                             $imgName=trim(oci_result($stmt, "IMAGE_NAME")) ? trim(oci_result($stmt, "IMAGE_NAME")) : "150x150.gif";
                                         }
                                         else{
                                             $imgName=$_FILES['userfile']['name'];
                                         }
-                                        echo '<div id="gallery" class="col-md-3" align="center"><img src="./uploads/' . $imgName . '" class="img-thumbnail"></div>';
+                                        echo '<div id="gallery" class="col-md-3" align="center"><img src="./property_images/' . $imgName . '" class="img-thumbnail"></div>';
                                     ?>
 
                                     <div class="col-md-6">
                                     <h4>Image Details</h4>
                                     <?php
-                                      echo "File Name: " .$_FILES["userfile"]["name"]. "<br />";
-                                      echo "File Size: " .$_FILES["userfile"]["size"]. " bytes<br />";
-                                      echo "File Type: " .$_FILES["userfile"]["type"]. "<br />";
+                                        // Have to check as triton's php.ini must have error_reporting set to E_NOTICE
+                                        if(isset($_FILES['userfile'])){
+                                            echo "File Name: " .$_FILES["userfile"]["name"]. "<br />";
+                                            echo "File Size: " .$_FILES["userfile"]["size"]. " bytes<br />";
+                                            echo "File Type: " .$_FILES["userfile"]["type"]. "<br />";
+                                        }
+                                        else{
+                                            echo "File Name: $imgName <br/>";
+                                            echo "File Size: ".filesize('./property_images/'.$imgName)."<br />";
+                                            //Deprecated so I can't be bothered fixing
+                                            //echo "File Type: ".mime_content_type('./uploads/'.$imgName)."<br />";
+                                        }
                                     ?>
                                     <br />
                                     <input class="input-control" type="file" name="userfile" />
@@ -262,16 +281,14 @@
         </aside>
 
         <script>
-            $(function(){
                 $('#update').click(function(){
                     var data = $('#property-details').serializeArray();
-                    data.push({name:'PROPERTY_ID', value: $('#propid').text()});
+                    data.push({name:'PROPERTY_ID', value: $('#propid').val()});
                     data.push({name:'action', value: 'update'});
                     $.post('manageproperties.php', data , function(res){
                         alert(res);
                     })
                 });
-            });
         </script>
 
         <script src="./assets/js/bootstrap.min.js"></script>

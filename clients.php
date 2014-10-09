@@ -395,9 +395,20 @@
                         <div class="modal-body row">
                             <div style="padding-left: 20px;">
                                 <form id="new-email" >
+                                    <label for="mTypeDrop">Select eMail Type:</label>
+                                    <br>
+                                    <select id="mTypeDrop" name="mTypeDrop">
+                                        <option id="mailinglist" value="mailinglist">Entire Mailinglist</option>
+                                        <option id="single" value="single">Single Email</option>
+                                    </select>
+                                    <br />
+                                    <label for="recipient">To:</label>
+                                    <br />
+                                    <input  type="text" id="recipient" class=".hidden" />
+                                    <br />
                                     <label for="msubject">Subject:</label>
                                     <br>
-                                    <input style="width: 90%;" type="text" name="msubject" class="input-xlarge" required>
+                                    <input style="width: 90%;" type="text" id="msubject" name="msubject" class="input-xlarge" required>
                                     <br>
                                     <label for="mbody">Message:</label>
                                     <br>
@@ -408,7 +419,7 @@
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger" id="sendmail" data-loading-text='<i class="fa fa-spinner fa-spin"></i> Sending'>
                                 <i class="fa fa-paper-plane-o"></i> Send Email</button>
-                            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                            <a href="#" class="btn" data-dismiss="modal">Done</a>
                         </div>
                     </div>
                 </div>
@@ -431,15 +442,6 @@
                 }).show();
             })
         }(jQuery));
-
-        $(function(){
-           $('#sendmail').click(function(){
-               if(window.confirm("Are you ready to send this email?")){
-                   var btn = $(this);
-                   btn.button('loading');
-               }
-           });
-        });
 
         $(function () {
             //This is the non retarded way to do this
@@ -502,8 +504,8 @@
             $.get("generate-pdf.php", function (data) {
                 // Reset the button state
                 btn.button('reset')
-                // Change to the PDF location
-                window.location = (data)
+                // Change to the PDF location (The name hack is due to strict rules on the server regarding deprecicated functions)
+                window.location = ('./Client-List.pdf')
             });
         });
 
@@ -572,6 +574,26 @@
                 }
             });
         });
+
+        //Could use serialise but want more control over vars
+        $("#sendmail").click(function (){
+            if(window.confirm("Are you ready to send this email?")){
+
+                var subject = $('#msubject').val();
+                var message = $('#mbody').val();
+                var recipient = $('#recipient').val();
+                var actiontype = (!recipient) ? 'mailinglist' : 'single';
+
+                $(this).button('loading');
+
+                $.post("sendmail.php", {action: actiontype, message: message, subject: subject, to: recipient}, function (data) {
+                    alert(data);
+                });
+
+                $(this).button('reset');
+            }
+        });
+
     </script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>

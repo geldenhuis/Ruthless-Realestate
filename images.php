@@ -1,8 +1,4 @@
-<?php
-    ob_start();
-    session_start();
-    if(!isset($_SESSION['loggedin'])){ header("Location: ./login.php"); }
-?>
+<?php ob_start(); session_start(); if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,13 +21,14 @@
     <link href="./assets/css/sidebar.css" rel="stylesheet">
     <link href="./assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 
@@ -44,22 +41,23 @@
         </nav>
     </header>
 
+
     <div class="wrapper">
         <aside class="left-side">
             <section class="sidebar bg">
                 <ul class="sidebar-menu">
 
-                     <li>
+                    <li>
                         <a href="index.php">
                             <i class="fa fa-bar-chart"></i>  <span>Overview</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active3">
                         <a href="./properties.php">
                             <i class="fa fa-home"></i>  <span>Property</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="type.php">
                             <i class="fa fa-th"></i>  <span>Property Types</span>
                         </a>
@@ -70,7 +68,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
@@ -110,107 +108,60 @@
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-users"></i> Home</a>
                     </li>
-                    <li>Property Type Database</li>
+                    <li>Property Database</li>
                 </ol>
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Property Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Property Type</button></h2>
+                <h2 class="pad">Image Mananagment - Server
+                    <a href="createproperty.php">
+                        <button id="addType" class='pad btn btn-default' style="float: right;">
+                            <i class="fa fa-plus"></i> Upload Image</button>
+                    </a>
+                </h2>
 
                     <div class="pad box box-solid flat">
-                    <div class="box-body">
-
-
-                        <div style="height: 550px;overflow-y: scroll;">
-                            <table class="table table-striped">
-
-
-                                <!-- Try to connect to DB and -->
-                                <?php include( "remoteconnection.php" );
-                                    $conn=oci_connect($UName,$PWord,$DB);
-                                    //loop through all id's
-                                    $query="SELECT * FROM property_type" ;
-                                    $stmt=oci_parse($conn, $query);
-                                    oci_execute($stmt);
-                                ?>
-
-                                <tbody class="searchable">
+                        <div style="height: 550px; overflow-y: scroll;">
+                        <div class="box-body">
+                            <form action="./images.php" method="post">
+                                <table class="table table-striped"><tbody>
                                     <?php
-                                        while ($row=oci_fetch_array ($stmt)) {
-                                            echo "<tr>";
-                                            echo "<td class='id'>$row[0]</td>";
-                                            echo "<td class='name'>$row[1]</td>";
+                                        $currdir = dirname($_SERVER["SCRIPT_FILENAME"]);
+                                        $currdir .="\\property_images\\";
+                                        $dir = opendir($currdir);
+                                        while($file = readdir($dir))
+                                        {
+                                            if($file == "." || $file ==".."){
+                                                continue;
+                                            }
 
-                                            echo "<td><div class='btn-group'><button class='btn btn-info deltype'>Delete</button>";
-                                            echo "<button class='btn btn-warning edit'>Edit</button></div></td>";
-                                            echo "</tr>";
+                                            if(is_dir($file)){
+                                                echo "<b>".$file."</b><br />";
+                                            }
+                                            else {
+                                                echo "<tr><td><img src='./property_images/".$file."' class='thumbnail' style='height:50px;width:50px;'/></td><td>";
+                                                echo "<td>".$file."</td>";
+                                                echo "<td>Delete <input type='checkbox' name='check[]' value='".$file."'/></td>";
+                                                echo "</tr>";
+                                            }
                                         }
+                                        closedir($dir);
                                     ?>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <?php oci_free_statement($stmt); oci_close($conn); ?>
+                                    </tbody>
+                                </table>
+                            </div>
                     </div>
                 </div>
+                                                <button class="btn btn-danger" type="submit">Submit</button>
+                            </form>
             </div>
         </aside>
 
-        <a href="showsource.php?page=clients.php" target="_blank"><img src="assets/images/codebuttonclient.jpg"></a>
+        <a href="showsource.php?page=clients.php" target="_blank">
+            <img src="assets/images/codebuttonclient.jpg">
+        </a>
 
     </div>
-
-    <script>
-        //Going to be super lazy and refresh the page as opposed to re-drawing the table or making the table dynamic
-        $(function(){
-            $("#addType").click(function() {
-                var type_name = prompt("Please enter a property type:");
-                if (type_name){
-                    $.post( "managetype.php", { action: "add", typename: type_name}, function( res ) {
-                        alert( res );
-                        window.location.reload(true);
-                    });
-                }
-            });
-        });
-
-        $(function(){
-            $(".deltype").click(function() {
-                var $row = $(this).closest("tr");
-                var $id = $row.find(".id").text();
-                var $confirm = window.confirm("Are you sure you wish to delete this item?");
-                if ($confirm){
-                    $row.hide();
-                    $.post( "managetype.php", { action: "delete", id: $id })
-                    .done(function(data){
-                        if (data == "Deleted") {
-                            alert("Item Deleted");
-                        }
-                        else {
-                            alert("An error occurred, item was not deleted");
-                            $row.show();
-
-                        }
-                    });
-                }
-            });
-            });
-
-        $(function(){
-           $(".edit").click(function(){
-               var currCell = $(this).closest("tr").find('.name');
-               var currVal = currCell.text();
-               var id = $(this).closest("tr").find('.id').text();
-               var type_name = prompt("Change the value and save:", currVal);
-
-               if (type_name != currVal && type_name){
-                   $.post("managetype.php", {action: 'update', id: id, typename: type_name}, function(res){
-                        currCell.text(type_name);
-                   });
-               }
-           });
-        });
-    </script>
 
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/retina.min.js"></script>

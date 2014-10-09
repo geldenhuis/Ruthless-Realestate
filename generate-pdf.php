@@ -57,7 +57,8 @@
     $mpdf = new mPDF();
 
     //Set Filename
-    $fname = 'Client List - ' . date('dmy') .'.pdf';
+    $fname = 'Client-List.pdf';
+
 
     //Add Stylesheet to input buffer
     $stylesheet = file_get_contents('./assets/css/pdf-style.css');
@@ -73,7 +74,6 @@
     $mpdf->Output($fname, 'F');
 
     //Return filelocation to ajax listener so we can access it.
-    echo $fname;
-
+    //Have to do this instead of returnin fname due to server settings
     exit;
 ?>
