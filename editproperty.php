@@ -4,6 +4,7 @@
 
     //Not needed for index as per specification
     if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); }
+
     include( "remoteconnection.php" );
     $conn=oci_connect($UName,$PWord,$DB);
 
@@ -133,7 +134,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
@@ -283,7 +284,7 @@
         <script>
                 $('#update').click(function(){
                     var data = $('#property-details').serializeArray();
-                    data.push({name:'PROPERTY_ID', value: $('#propid').val()});
+                    data.push({name:'PROPERTY_ID', value: $('#propid').text()});
                     data.push({name:'action', value: 'update'});
                     $.post('manageproperties.php', data , function(res){
                         alert(res);

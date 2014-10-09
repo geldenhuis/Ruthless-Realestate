@@ -70,7 +70,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
@@ -115,7 +115,7 @@
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Feature Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Property Type</button></h2>
+                <h2 class="pad">Feature Type Database<button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> Add Feature Type</button></h2>
 
                     <div class="pad box box-solid flat">
                     <div class="box-body">

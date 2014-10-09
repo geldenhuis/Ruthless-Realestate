@@ -1,4 +1,8 @@
-<?php ob_start(); session_start(); if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); } ?>
+<?php
+    ob_start();
+    session_start();
+    if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); }
+?>
 
 <!-- TODO LIST: Updated - 29th September 6pm
     - Create Proper confirm modal
@@ -72,7 +76,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>

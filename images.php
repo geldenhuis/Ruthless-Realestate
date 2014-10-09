@@ -29,6 +29,16 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <?php
+        // Check is the Check[] array is set
+        if(isset($_POST['check'])){
+            //Loop through array and check if any of the images selected are used by a property
+            foreach($_POST['check'] as $images){
+                $query = "update property_images SET image_ where ";
+            }
+        }
+    ?>
+
 </head>
 
 

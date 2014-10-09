@@ -96,7 +96,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
@@ -203,18 +203,15 @@
                 var $confirm = window.confirm("Are you sure you wish to delete this item?");
                 if ($confirm) {
                     $row.hide();
-                    $.post("manageproperties.php", {
-                        action: "delete",
-                        id: $id
-                    })
-                    .done(function (data) {
-                        if (data == "Deleted") {
+                    $.post("manageproperties.php", {action: "delete", PROPERTY_ID: $id}, function (data) {
+                       /* if (data == "Deleted") {
                             alert("Item Deleted");
                         } else {
                             alert("An error occurred, item was not deleted");
                             $row.show();
-                        }
-                    });
+                        }*/
+                        alert(data);
+                    })
                 }
             });
         });

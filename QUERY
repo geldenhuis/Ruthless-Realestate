@@ -1,0 +1,1 @@
+UPDATE property SET PROPERTY_STREET = '20 Pearl Bay Passage                                                                                ' ,PROPERTY_SUBURB ='St Leonards                                       ' , PROPERTY_STATE ='VIC  ' , PROPERTY_PC ='3223' ,PROPERTY_TYPE ='2' ,PROPERTY_PRICE ='300000' WHERE PROPERTY_ID=21

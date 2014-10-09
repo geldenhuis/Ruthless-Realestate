@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>
@@ -119,7 +119,7 @@
                 <hr>
                 <div class="container">
                     <div class="row" style="text-align: center;">
-                        <div class="col-md-3 box box-solid flat">
+                        <div class="col-md-4 box box-solid flat">
                             <h3>Property Overview</h3>
                             <hr>
                             <i class="fa fa-home fa-4x"></i>
@@ -127,12 +127,12 @@
                             <h2 id="totalProps" class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
-                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Property DB</a>
+                                <a href="./properties.php" class="btn btn-info btn-block btn-lg">View Property DB</a>
                             </div>
 
                         </div>
 
-                        <div class="col-md-3 box box-solid flat">
+                        <div class="col-md-4 box box-solid flat">
                             <h3>Client Overview</h3>
                             <hr>
                             <i class="fa fa-user fa-4x"></i>
@@ -140,25 +140,13 @@
                             <h2 id="totalClients" class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
                             <div class="pad">
-                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Client DB</a>
+                                <a href="./client.php" class="btn btn-info btn-block btn-lg">View Client DB</a>
                             </div>
 
                         </div>
 
-                        <div class="col-md-3 box box-solid flat">
-                            <h3>Listing Overview</h3>
-                            <hr>
-                            <i class="fa fa-newspaper-o fa-4x"></i>
-                            <h4>Active Listings</h4>
-                            <h2 id='totalListings' class="text-blue"><i class="fa fa-spinner fa-spin"></i></h2>
 
-                            <div class="pad">
-                                <a href="./customers.php" class="btn btn-info btn-block btn-lg">View Listings</a>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-3 box box-solid flat">
+                        <div class="col-md-4 box box-solid flat">
                             <h3>Sales Overview</h3>
                             <hr>
                             <i class="fa fa-dollar fa-4x"></i>
@@ -171,12 +159,6 @@
 
                         </div>
                     </div>
-
-                    <div class="row" style="text-align: center;">
-
-                    </div>
-
-
                 </div>
             </div>
         </aside>

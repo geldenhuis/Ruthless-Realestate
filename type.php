@@ -70,7 +70,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="./images.php">
                             <i class="fa fa-picture-o"></i>  <span>Images</span>
                         </a>
                     </li>

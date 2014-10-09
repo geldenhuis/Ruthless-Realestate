@@ -14,7 +14,7 @@ TODO:
 - Post data to (property_features)
 - Finish property update SQL
 - Add field checking (Javascript)
-- Change file uploads to 'property_images' (Done)
+- Change file uploads to 'property_images' - (Done)
 - Add Sold Dates, and Mark as sold functions
 
 #Multi-Edit (Price)
@@ -28,7 +28,8 @@ TODO:
 - Add DB error checks
 
 #Images (Manage)
-- List all images
+- List all images - Done
+- Update Property_Images Tables
 
 #Documentation
 - Do this
