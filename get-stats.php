@@ -17,7 +17,7 @@
     // Done for interface performance reasons
     // Multiple Queries increase latency in rendering the interface
     // http://docs.oracle.com/database/121/SQLRF/queries009.htm#SQLRF20036
-    $query = "SELECT (SELECT COUNT(*) FROM customer) AS totalCustomers, (SELECT COUNT(*) FROM authenticate) AS totAccounts FROM dual";
+    $query = "SELECT (SELECT COUNT(*) FROM client) AS totalCustomers, (SELECT COUNT(*) FROM property) AS prop FROM dual";
 
     //Create statement from connection and query
     $stmt=oci_parse($conn, $query);

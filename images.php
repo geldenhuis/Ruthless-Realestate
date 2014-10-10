@@ -42,7 +42,7 @@
 
 <body style="font-family: HelveticaNeue-Light; font-weight: 300;">
     <header class="header">
-        <a href="index.html" class="logo">
+        <a href="index.php" class="logo">
             Administration
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
@@ -87,12 +87,12 @@
                     </li>
                     <li>
                         <a href="type.php">
-                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                            <i class="fa fa-th"></i>  <span>Types</span>
                         </a>
                     </li>
                     <li>
                         <a href="features.php">
-                            <i class="fa fa-th"></i>  <span>Property Features</span>
+                            <i class="fa fa-th"></i>  <span>Features</span>
                         </a>
                     </li>
                     <li>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
                                 <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Yes</button>
+                                    <a href="logout.php"><button type="button" class="btn btn-danger">Yes</a></button></a>
                                     <button type="button" data-dismiss="modal" class="btn btn-warning">No</button>
                                 </div>
                             </div>
@@ -141,11 +141,9 @@
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Image Mananagment - Server
-                    <a href="createproperty.php">
-                        <button id="addType" class='pad btn btn-default' style="float: right;">
+                <h2 class="pad">Image Management - Server
+                    <button id="addType" class='pad btn btn-default' style="float: right;">
                             <i class="fa fa-plus"></i> Upload Image</button>
-                    </a>
                 </h2>
 
                     <div class="pad box box-solid flat">

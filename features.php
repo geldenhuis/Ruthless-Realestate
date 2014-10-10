@@ -61,12 +61,12 @@
                     </li>
                     <li>
                         <a href="type.php">
-                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                            <i class="fa fa-th"></i>  <span>Types</span>
                         </a>
                     </li>
                     <li>
                         <a href="features.php">
-                            <i class="fa fa-th"></i>  <span>Property Features</span>
+                            <i class="fa fa-th"></i>  <span>Features</span>
                         </a>
                     </li>
                     <li>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
                                 <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Yes</button>
+                                    <a href="logout.php"><button type="button" class="btn btn-danger">Yes</a></button></a>
                                     <button type="button" data-dismiss="modal" class="btn btn-warning">No</button>
                                 </div>
                             </div>

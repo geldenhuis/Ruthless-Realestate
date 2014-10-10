@@ -1,4 +1,4 @@
-<?php ob_start(); session_start(); if(!isset($_SESSION[ 'loggedin'])){ header( "Location: ./login.php"); } ?>
+<?php ob_start(); session_start(); if(!isset($_SESSION['loggedin'])){ header( "Location: ./login.php"); } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,12 +87,12 @@
                     </li>
                     <li>
                         <a href="type.php">
-                            <i class="fa fa-th"></i>  <span>Property Types</span>
+                            <i class="fa fa-th"></i>  <span>Types</span>
                         </a>
                     </li>
                     <li>
                         <a href="features.php">
-                            <i class="fa fa-th"></i>  <span>Property Features</span>
+                            <i class="fa fa-th"></i>  <span>Features</span>
                         </a>
                     </li>
                     <li>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to logout?</div>
                                 <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn btn-danger">Yes</button>
+                                    <a href="logout.php"><button type="button" class="btn btn-danger">Yes</a></button></a>
                                     <button type="button" data-dismiss="modal" class="btn btn-warning">No</button>
                                 </div>
                             </div>
@@ -141,10 +141,11 @@
             </section>
 
             <div class="col-xs-12 pad">
-                <h2 class="pad">Property Database<a href="createproperty.php"><button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> New Property</button></a></h2>
+                <h2 class="pad">Property Database<a href="addproperty.php"><button id="addType" class='pad btn btn-default' style="float: right;"><i class="fa fa-plus"></i> New Property</button></a></h2>
 
                 <div class="pad box box-solid flat">
                     <div class="box-body">
+
                         <form action="properties.php" method="post">
                             <div class="input-group">
                                 <span class="input-group-addon">Search Properties</span>
@@ -157,10 +158,10 @@
                                     <option value="suburb">Suburb</option>
                                 </select>
                                 <br>
-                                <button type="submit" id="search" class="btn btn-warning btn-block" style="float: left;">Search</button>
+                                <button type="submit" id="search" class="btn btn-warning" style="float: left;">Search</button>
                             </div>
                         </form>
-                        <hr>
+
 
                         <div style="height: 550px;overflow-y: scroll;">
                             <table class="table table-striped">
